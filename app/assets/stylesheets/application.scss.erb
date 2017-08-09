@@ -47,15 +47,36 @@ body {
 }
 
 .header {
-  padding: $gapSize;
+  padding: $gapSize * 2;
   box-shadow: 0 1px 0 rgba(#000, 0.2);
 }
 
+.search {
+  padding: $gapSize;
+}
+
+.right {
+  text-align: right;
+}
+
+.center {
+  text-align: center;
+}
+
+.bold {
+  font-weight: bold;
+}
+
 .text {
-    text-align: center;
+  color: #000;
 }
 
 .img {
     text-align: left;
-    max-width: 200px;
+    max-width: 250px;
+}
+
+#header_image {
+  background: url(<%= asset_path 'oldbooks2.jpg' %>) no-repeat center center fixed;
+  background-size: cover;
 }
