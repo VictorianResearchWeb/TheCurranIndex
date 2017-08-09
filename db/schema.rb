@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(version: 1) do
     t.string  "code",                   limit: 6
     t.string  "title"
     t.string  "attribution"
-    t.string  "type",                   limit: 10, default: "prose"
+    t.string  "article_type",           limit: 10, default: "prose"
     t.integer "volume"
     t.string  "attribution_confidence", limit: 10
     t.integer "issue_number"
@@ -31,11 +31,11 @@ ActiveRecord::Schema.define(version: 1) do
     t.string  "payment",                limit: 8
   end
 
+  add_index "articles", ["article_type"], name: "Article Type", using: :btree
   add_index "articles", ["code"], name: "Article Code", using: :btree
   add_index "articles", ["issue_number"], name: "Issue Number", using: :btree
   add_index "articles", ["page_start"], name: "Article Page Start", using: :btree
   add_index "articles", ["periodical_id"], name: "Periodical", using: :btree
-  add_index "articles", ["type"], name: "Article Type", using: :btree
   add_index "articles", ["year"], name: "Article Year", using: :btree
 
   create_table "articles_contributors", id: false, force: true do |t|
@@ -74,21 +74,21 @@ ActiveRecord::Schema.define(version: 1) do
     t.text    "contents",  limit: 2147483647
   end
 
-  create_table "months", primary_key: "ID", force: true do |t|
-    t.string "Publication Month", limit: 3
+  create_table "months", force: true do |t|
+    t.string "publication_month", limit: 3
   end
 
-  create_table "notes", primary_key: "ID", force: true do |t|
-    t.string "Source"
-    t.text   "Information", limit: 2147483647
+  create_table "notes", force: true do |t|
+    t.string "source"
+    t.text   "information", limit: 2147483647
   end
 
   create_table "periodicals", force: true do |t|
     t.string "name"
     t.string "abbreviation"
-    t.text   "comment",       limit: 2147483647
-    t.text   "postscript",    limit: 2147483647
-    t.string "frequency",     limit: 5
+    t.text   "comment",      limit: 2147483647
+    t.text   "postscript",   limit: 2147483647
+    t.string "frequency",    limit: 5
   end
 
 end
