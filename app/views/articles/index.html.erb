@@ -1,0 +1,35 @@
+<div class="header">
+  <div class="row">
+    <div class="col-md-3">
+      <%= image_tag("1vrw3.gif", class: 'img')%>
+    </div>
+    <div class="col-md-5">
+      <h1 class="text">The Curran Index </h1>
+      <p class="text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+      quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+      consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse.</p>
+    </div>
+  </div>
+</div>
+<div class="columns">
+  <div class="sidecol">
+  <div class="panel panel-default">
+    <h4 class="panel-title"><b>Periodicals</b></h4>
+    <%@periodicals.each do |p|%>
+    <div class="panel-body"> <%=p.name%></div>
+    <%end%>
+  </div>
+  </div>
+  <div class="maincol">
+  <ul class= "list-unstyled">
+  <%@articles.each do |art| %>
+    <li><b><%= art.title %></b>, <%= art.periodical.name%> <%=art.volume%> (<%=art.date%>)
+    <li class="tab"><%=art.attribution%></li>
+    <br></li>
+  <%end%>
+  <br>
+  </ul>
+  <%= will_paginate @articles%>
+  </div>
+</div>
