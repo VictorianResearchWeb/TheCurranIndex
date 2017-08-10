@@ -80,3 +80,61 @@ body {
   background: url(<%= asset_path 'oldbooks2.jpg' %>) no-repeat center center fixed;
   background-size: cover;
 }
+
+.toolbar_group {
+  width: 100%;
+  display: table;
+  border-spacing: 0;
+  border-collapse: collapse;
+  display: table-cell;
+  white-space: nowrap;
+  padding-left: $gapSize;
+  vertical-align: middle;
+  &:first-child { padding-left: 0; }
+  &.wrap-text {
+    line-height: 1.1;
+    white-space: normal;
+  }
+}
+
+
+
+.pagination {
+  white-space: nowrap;
+  margin: $gapSize / 2 0;
+  > * {
+    line-height: 2;
+    padding: 0 0.5em;
+    transition: none;
+    margin: 0 1px 0 0;
+    font-style: normal;
+    text-align: center;
+    border-radius: 3px;
+    display: inline-block;
+    text-decoration: none;
+  }
+  a:hover {
+    background: rgba(#200, 0.1);
+  }
+  .current {
+    color: #000;
+    //background: $bgSelected;
+  }
+  .disabled {
+    display: none;
+  }
+  .info {
+    line-height: 2;
+    text-align: right;
+    //color: $bodyFgFaded;
+    margin: $gapSize / 2 0;
+  }
+}
+
+
+
+
+
+
+
+

@@ -27,7 +27,7 @@ ActiveRecord::Schema.define(version: 1) do
     t.string  "attribution_confidence", limit: 10
     t.integer "issue_number"
     t.string  "entry_month",            limit: 7,  default: "(06/17)"
-    t.integer "article_day"
+    t.integer "day"
     t.string  "payment",                limit: 8
   end
 

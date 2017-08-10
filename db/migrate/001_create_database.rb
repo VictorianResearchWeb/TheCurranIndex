@@ -10,20 +10,20 @@ class CreateDatabase < ActiveRecord::Migration
         t.string  "code",                   limit: 6
         t.string  "title"
         t.string  "attribution"
-        t.string  "article_type",                   limit: 10, default: "prose"
+        t.string  "article_type",           limit: 10, default: "prose"
         t.integer "volume"
         t.string  "attribution_confidence", limit: 10
         t.integer "issue_number"
         t.string  "entry_month",            limit: 7,  default: "(06/17)"
-        t.integer "article_day"
+        t.integer "day"
         t.string  "payment",                limit: 8
       end
 
+      add_index "articles", ["article_type"], name: "Article Type", using: :btree
       add_index "articles", ["code"], name: "Article Code", using: :btree
       add_index "articles", ["issue_number"], name: "Issue Number", using: :btree
       add_index "articles", ["page_start"], name: "Article Page Start", using: :btree
       add_index "articles", ["periodical_id"], name: "Periodical", using: :btree
-      add_index "articles", ["article_type"], name: "Article Type", using: :btree
       add_index "articles", ["year"], name: "Article Year", using: :btree
     end
     

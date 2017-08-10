@@ -19,14 +19,11 @@
   </div>
   </div>
   <div class="maincol">
-  <ul class= "list-unstyled">
-  <%@articles.each do |art| %>
-    <li><b><%= art.title %></b>, <%= art.periodical.name%> <%=art.volume%> (<%=art.date%>)
-    <li class="tab"><%=art.attribution%></li>
-    <br></li>
-  <%end%>
-  <br>
-  </ul>
-  <%= will_paginate @articles%>
+    <ul class= "list-unstyled">
+    <%=render 'by_periodical', locals: {periodical: @periodical} %>
+    </ul>
+    <div class="toolbar_group">
+    <%= will_paginate @list%>
+    </div>
   </div>
 </div>

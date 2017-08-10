@@ -1,0 +1,17 @@
+  <div>
+    <%=@periodical.name%><br>
+    <%=raw @periodical.comment%>
+  </div>
+  <div>
+    <ul class= "list-unstyled">
+      <%@list.each do |volume, articles| %>
+        <br>
+        <b>Volume: <%= volume%>, <%=articles.first.date%></b>
+        <% articles.each do |art| %>
+          <li><%=art.periodical_citation%> <%=art.entry_month%>
+        <%end%>
+        <br></li>
+      <%end%>
+      <br>
+    </ul>
+</div>
