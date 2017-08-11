@@ -8,7 +8,9 @@
         <br>
         <b>Volume: <%= volume%>, <%=articles.first.date%></b>
         <% articles.each do |art| %>
-          <li><%=art.periodical_citation%> <%=art.entry_month%>
+          <li><%=art.title%> 
+          <%=art.periodical_citation%>
+          <%=art.entry_month%>
         <%end%>
         <br></li>
       <%end%>

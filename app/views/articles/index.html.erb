@@ -20,7 +20,7 @@
   </div>
   <div class="maincol">
     <ul class= "list-unstyled">
-    <%=render 'by_periodical', locals: {periodical: @periodical} %>
+    <%=render 'periodical', locals: {periodical: @periodical} %>
     </ul>
     <div class="toolbar_group">
     <%= will_paginate @list%>

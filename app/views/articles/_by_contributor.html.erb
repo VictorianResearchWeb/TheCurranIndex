@@ -1,5 +1,12 @@
-      <%@contributor_articles.each do |art| %>
-        <li><%=art.author_citation%> <%=art.entry_month%></li>
+    <h4 class="bold"><%=@contributor.first_last_name%> <%=@contributor.birthdate%> - <%=@contributor.deathdate%>, <%=@contributor.nationality%>, <%=@contributor.education%></h4><br>
+    <%= raw @contributor.comment%>
+    <div>
+      <ul class="list-unstyled">
+        <%@contributor_articles.each do |art| %>
+          <li><%=art.author_citation%> <%=art.entry_month%></li>
+          <br>
+        <%end%>
         <br>
-      <%end%>
-      <br>
+      </ul>
+    </div>
+
