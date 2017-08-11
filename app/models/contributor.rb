@@ -1,5 +1,14 @@
 class Contributor < ActiveRecord::Base
+#  has_many :article_contributor_links
+#  has_many :articles, through: :article_contributor_links
   has_and_belongs_to_many :articles
+
+  scope :by_periodical, ->(periodical) { joins(articles: :periodical).where(articles: {periodical_id: periodical})}
+
+  #scope :names_by_article, ->(articles) {joins(:articles).where(articles: {id: articles.ids}).pluck(:full_name)}
+
+  scope :names_by_article, -> {pluck(:full_name) }
+
 
   def birthdate
     if self.birth
