@@ -32,4 +32,10 @@ class Contributor < ActiveRecord::Base
     self.full_name.split(",").reverse.join(" ").strip
   end
 
+  def biography
+    array = [self.first_last_name, self.birthdate, "- #{self.deathdate}", self.nationality, self.education]
+    biography = array.reject(&:blank?).join(" ").to_s
+    return biography
+  end
+
 end

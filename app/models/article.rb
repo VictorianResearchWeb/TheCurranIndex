@@ -5,6 +5,8 @@ class Article < ActiveRecord::Base
   belongs_to :periodical
   belongs_to :month
 
+  has_many :people, -> { joins(:articles_contributors).where()}
+
   scope :order_by_volume, -> { order(volume: :asc)}
 
   #concatenate date information for display

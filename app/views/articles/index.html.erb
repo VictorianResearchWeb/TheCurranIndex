@@ -1,7 +1,7 @@
 <div class="header" id="header_image">
       <h1 class="center bold">The Curran Index</h1>
 </div>
-<div class="row center">
+<div class="row">
   <form role="form" class="form-inline search">
     <div class="form-group">
       <label for="search">Search</label>
@@ -19,11 +19,20 @@
   </div>
   </div>
   <div class="maincol">
-    <ul class= "list-unstyled">
-    <%=render 'periodical', locals: {periodical: @periodical} %>
-    </ul>
+    <div class="panel panel-default">
+      <div class="panel-body"> 
+      <p>Text for the introduction of the Curran index - to be shown before searching is done.</p>  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+      quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+      consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+      cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+      proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+      </div>
+
+      <ul class= "list-unstyled">
+      </ul>
+    </div>
     <div class="toolbar_group">
-    <%= will_paginate @list%>
     </div>
   </div>
 </div>

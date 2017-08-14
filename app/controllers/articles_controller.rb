@@ -14,4 +14,11 @@ class ArticlesController < ApplicationController
     @contributor_articles = @contributor.articles.includes(:periodical, :month)
   end
 
+  def periodical
+    @periodical = Periodical.find_by(id: 1)
+    
+    @list = @periodical.articles.includes(:periodical, :month).includes(:contributors).order_by_volume.paginate(:page => params[:page], :per_page => 30)
+
+  end
+
 end
