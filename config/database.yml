@@ -13,8 +13,6 @@ default: &default
   adapter: mysql2
   encoding: utf8
   pool: 5
-  username: root
-  password: devwork
   socket: /var/run/mysqld/mysqld.sock
   strict: false
 
@@ -49,6 +47,4 @@ test:
 #
 production:
   <<: *default
-  database: prod
-  username: root
-  password: devwork
+  database: curran_index
