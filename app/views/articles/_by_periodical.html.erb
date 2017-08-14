@@ -5,8 +5,8 @@
   <div>
     <ul class= "list-unstyled">
       <%@list.joins(:contributors).each do |art| %>
-          <li><b><%=art.title%> </b>
-          <%=art.periodical_citation%>
+          <li>
+          <%=raw art.periodical_citation%>
           <%=art.entry_month%>
         <%end%>
         <br></li>

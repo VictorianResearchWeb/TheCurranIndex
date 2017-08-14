@@ -1,6 +1,4 @@
 class Article < ActiveRecord::Base
-#  has_many :article_contributor_links
-#  has_many :contributors, through: :article_contributor_links
   has_and_belongs_to_many :contributors
   belongs_to :periodical
   belongs_to :month
@@ -32,7 +30,7 @@ class Article < ActiveRecord::Base
   def periodical_citation
     all_contributors = self.contributors.map{|contributor| contributor.first_last_name}
 
-    array = [self.periodical.abbreviation, self.code, self.title, self.pages, all_contributors, self.attribution_confidence, self.attribution]
+    array = [self.periodical.abbreviation, self.code, "<b>#{self.title}</b>", self.pages, all_contributors, self.attribution_confidence, self.attribution]
     citation = array.reject(&:blank?).join(", ").to_s
 
     unless self.article_type == "prose"
