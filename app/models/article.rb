@@ -9,7 +9,7 @@ class Article < ActiveRecord::Base
 
   #concatenate date information for display
   def date
-    date = "#{self.month.name} #{self.day} #{self.year}"
+    date = "#{self.month.name} #{self.day} #{self.article_year}"
   end
 
   def pages

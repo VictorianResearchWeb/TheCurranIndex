@@ -1,6 +1,6 @@
 class ArticlesController < ApplicationController
   def index
-    @periodicals = Periodical.order(:name)
+    @periodicals = Periodical.order(:title)
 
     @periodical = Periodical.find_by(id: 1)
     
