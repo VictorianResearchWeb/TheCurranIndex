@@ -15,50 +15,82 @@
     <h4 class="panel-title center"><br><b>Filter By</b></h4>
     <%=link_to 'reset', '?', class: 'btn btn-default btn-sm pull-right'%>
     <div class="panel-body">
-    <%[:periodical, :article_type].each do |filter_name|%>
-      <%filter = @search.filter(filter_name)%>
-      <div class="filter">
-        <div class="filter-title">
-        <p><%=filter.name%></p>
-        </div>
-        <div class="filter-values">
-        <ul class="selected">
-        <%filter.selected.each do |entity|%>
-          <%display = filter_name == :article_type ? entity : entity.title %>
-          <li><%=link_to display, filter.remove(entity).path%></li>
-        <%end%>
-        </ul>
-        <ul class="selectable">
-          <%filter.facet.reject(&:selected).each do |facet_value|%>
-            <%entity = facet_value.entity%>
-            <li>
-              <%display = filter_name == :article_type ? entity : entity.title %>
-              <%=link_to display, filter.add(entity).path%>
+      <%[:periodical].each do |filter_name|%>
+        <%filter = @search.filter(filter_name)%>
+        <div class="filter">
+          <div class="filter-title">
+            <p><%=filter.name%></p>
+          </div>
+          <div class="filter-values">
+            <ul class="selected">
+              <%filter.selected.each do |entity|%>
+                <%display = filter_name == :article_type ? entity : entity.title %>
+                <li><%=link_to display, filter.remove(entity).path%></li>
               <%end%>
-              </li>
-        </ul>
+              </ul>
+            <ul class="selectable">
+              <%filter.facet.reject(&:selected).each do |facet_value|%>
+                <%entity = facet_value.entity%>
+                <li>
+                  <%display = filter_name == :article_type ? entity : entity.title %>
+                    <%=link_to display, filter.add(entity).path%>
+                  <%end%>
+                </li>
+            </ul>
+          </div>
         </div>
-      </div>
-    <%end%>
+      <%end%>
+      <%[:contributors, :article_type].each do |filter_name|%>
+        <%filter = @search.filter(filter_name)%>
+        <div class="filter">
+          <div class="filter-title">
+            <p><%=filter.name%></p>
+          </div>
+          <div class="filter-values">
+            <ul class="selected">
+              <%filter.selected.each do |entity|%>
+                <%display = filter_name == :article_type ? entity : entity.full_name %>
+                <li><%=link_to display, filter.remove(entity).path%></li>
+              <%end%>
+              </ul>
+            <ul class="selectable">
+              <%filter.facet.reject(&:selected).each do |facet_value|%>
+                <%entity = facet_value.entity%>
+                <li>
+                  <%display = filter_name == :article_type ? entity : entity.full_name %>
+                    <%=link_to display, filter.add(entity).path%>
+                  <%end%>
+                </li>
+            </ul>
+          </div>
+        </div>
+      <%end%>
+
     </div>
   </div>
   </div>
   <div class="maincol">
-      <div class="panel panel-default">
+    <div class="panel panel-default">
       <div class="panel-body"> 
-      <%#if params[:page].nil? %>
-      <%#else%>
-      <ul class= "list-unstyled">
-
-        <%@list.each do |art|%>
-          <p><%=art.periodical_citation%></p>
-          <%end%>
-      <%#end%>
-      </ul>
-  </div>
+        <%if params[:search].nil? %>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+          tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+          quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+          consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+          cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+          proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        <%else%>
+          <ul class= "list-unstyled">
+            <%@list.each do |art|%>
+              <p><%= raw art.periodical_citation%></p>
+            <%end%>
+          </ul>
+      </div>
     </div>
     <div class="toolbar_group">
-    <%= will_paginate @list%>
+      <%= will_paginate @list%>
     </div>
+      <%end%>
+
   </div>
 </div>

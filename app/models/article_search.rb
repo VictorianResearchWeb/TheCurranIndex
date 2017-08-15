@@ -4,7 +4,7 @@ class ArticleSearch < FortyFacets::FacetSearch
   text :title, name: 'Title'
   range :date, name: 'Date'
 
-  facet :contributors, name: 'Contributor', order: :title
+  facet :contributors, name: 'Contributor', order: :full_name
   facet :periodical, name: 'Periodical', order: :title
   facet :article_type, name: 'Article Type'
 
