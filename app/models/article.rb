@@ -6,9 +6,11 @@ class Article < ActiveRecord::Base
   scope :order_by_volume, -> { order(volume: :asc)}
   scope :periodical_order, -> { joins(:periodical).merge(Periodical.order(title: :asc)).order(volume: :asc).order(title: :asc)}
 
+  scope :order_by_date, -> { order(:article_year).order(:month_id)}
+
   #concatenate date information for display
   def date
-    date = "#{self.month.name} #{self.day} #{self.article_year}"
+    date = [self.month.name, self.day, self.article_year].reject(&:blank?).join(" ").to_s
   end
 
   def pages

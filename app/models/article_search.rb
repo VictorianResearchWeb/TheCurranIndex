@@ -2,7 +2,7 @@ class ArticleSearch < FortyFacets::FacetSearch
   model 'Article'
 
   text :title, name: 'Title'
-  range :date, name: 'Date'
+  range :article_year, name: 'Year'
 
   facet :contributors, name: 'Contributor', order: :full_name
   facet :periodical, name: 'Periodical', order: :title
