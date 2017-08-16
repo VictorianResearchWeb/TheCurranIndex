@@ -10,7 +10,7 @@ class Article < ActiveRecord::Base
 
   #concatenate date information for display
   def date
-    date = [self.month.name, self.day, self.article_year].reject(&:blank?).join(" ").to_s
+    date = [self.month.publication_month, self.day, self.article_year].reject(&:blank?).join(" ").to_s
   end
 
   def pages
@@ -31,7 +31,7 @@ class Article < ActiveRecord::Base
   def periodical_citation
     all_contributors = self.contributors.map{|contributor| contributor.first_last_name}
 
-    array = [self.periodical.abbreviation, self.code, "<b>#{self.title}</b>", self.pages, all_contributors, self.attribution_confidence, self.attribution]
+    array = [self.periodical.abbreviation, self.code, "<b>#{self.title}</b>", self.pages, self.date, all_contributors, self.attribution_confidence, self.attribution]
     citation = array.reject(&:blank?).join(", ").to_s
 
     unless self.article_type == "prose"
