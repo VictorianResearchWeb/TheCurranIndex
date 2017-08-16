@@ -12,6 +12,7 @@
  *
  *= require_tree .
  *= require_self
+ *= require jquery-ui/slider
  */
 @import 'bootstrap-sprockets';
 @import 'bootstrap';
@@ -134,7 +135,21 @@ body {
   overflow: scroll;
 }
 
-
+.slider-row {
+  padding: 10px 0;
+  .slider-min, .slider-max {
+    font-weight: bold;
+    padding: 5px 0;
+  }
+  .slider-min {
+    float: left;
+  }
+  .slider-max {
+    float: right;
+  }
+  .slider {
+  }
+}
 
 
 

@@ -121,23 +121,28 @@
       </div>
     </div>
     <div>
-    <% year_filter = @search.filter(:article_year)%>
-    <input-group>
-      <%=text_field_tag "disabled", year_filter.value, class: "form-control", id: "year-range-display", disabled: true%>
+      <%=form_tag nil, method: :get do%>
+      <% year_filter = @search.filter(:article_year)%>
+      <div class="slider-row">
+        <div class = "slider" id="slider-range"></div>
+        <div class="slider-min">
+          <%=year_filter.absolute_min%>
+        </div>
+        <div class="slider-max">
+          <%=year_filter.absolute_max%>
+        </div>
+      </div>
+      <br>
+      <div class="input-group">
+        <%=text_field_tag "disabled", year_filter.value, class: "form-control", id: "year-range-display", disabled: true, placeholder: "Year"%>
         <%= hidden_field_tag "search[article_year]", year_filter.value, class: "form-control", id: "year-range", data: { "absolute-min" => year_filter.absolute_min, "absolute-max" => year_filter.absolute_max }%>
-        <input-group-btn>
-          <button type="button" class="btn btn-default">Search</button>
-        </input-group-btn>
-    </input-group>
-    <slider-row>
-      <slider-min>
-      <%=year_filter.absolute_min%>
-      </slider-min>
-      <slider-max>
-      <%=year_filter.absolute_max%>
-      </slider-max>
-      <slider id="slider-range"></slider>
-    </div>
+        <div class="input-group-btn">
+          <button type="submit" class="btn btn-default">Search</button>
+        </div>
+      </div>
+      <%end%>
+    </div>    
+    <br>
     <div class="center"><%=link_to 'Reset All Filters', '?', class: 'btn btn-default btn-sm'%></div>
   </div>
   <div class="maincol">
@@ -168,3 +173,32 @@
       <%end%>
   </div>
 </div>
+
+<script type="text/javascript">
+  $(function() {
+    var current = $('#year-range').val();
+    var abs_min = parseFloat($('#year-range').attr('data-absolute-min'));
+    var abs_max = parseFloat($('#year-range').attr('data-absolute-max'));
+
+    var current_min = abs_min;
+    var current_max = abs_max;
+
+    //$("#year-range-display").val(current_min + " - " + current_max);
+
+    if (current != '') {
+      var splits = current.split(' - ');
+      current_min = parseFloat(splits[0]);
+      current_max = parseFloat(splits[1]);
+    }
+    $( "#slider-range" ).slider({
+      range: true,
+      min: abs_min,
+      max:  abs_max,
+      values: [ current_min, current_max ],
+      slide: function( event, ui ) {
+        $( "#year-range" ).val( ui.values[ 0 ] + " - " + ui.values[ 1 ] );
+        $( "#year-range-display" ).val( ui.values[ 0 ] + " - " + ui.values[ 1 ] );
+      }
+    });
+  });
+  </script>
