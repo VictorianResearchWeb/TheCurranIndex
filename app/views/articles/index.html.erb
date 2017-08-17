@@ -123,6 +123,7 @@
     <div>
       <%=form_tag nil, method: :get do%>
       <% year_filter = @search.filter(:article_year)%>
+      <%other_params = @search.params%>
       <div class="slider-row">
         <div class = "slider" id="slider-range"></div>
         <div class="slider-min">
@@ -132,14 +133,16 @@
           <%=year_filter.absolute_max%>
         </div>
       </div>
+
       <br>
       <div class="input-group">
         <%=text_field_tag "disabled", year_filter.value, class: "form-control", id: "year-range-display", disabled: true, placeholder: "Year"%>
+        <%other_params.each do |key, value|%>
+          <%= hidden_field_tag "search[#{key}]", value%>
+        <%end%>
         <%= hidden_field_tag "search[article_year]", year_filter.value, class: "form-control", id: "year-range", data: { "absolute-min" => year_filter.absolute_min, "absolute-max" => year_filter.absolute_max }%>
-        
         <div class="input-group-btn">
-          <%#=link_to "Search", year_filter.value, class: "btn btn-default"%>
-           <button type="submit" class="btn btn-default">Search</button> 
+           <button type="submit" class="btn btn-default">Search</button>
         </div>
       </div>
       <%end%>

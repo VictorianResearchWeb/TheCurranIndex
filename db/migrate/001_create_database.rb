@@ -81,7 +81,7 @@ class CreateDatabase < ActiveRecord::Migration
 
     unless table_exists?("months")
       create_table "months", force: :cascade do |t|
-        t.string "name", limit: 3
+        t.string "publication_month", limit: 3
       end
     end
 
