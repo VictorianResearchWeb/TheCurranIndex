@@ -24,7 +24,7 @@
                 <div class="filter-values">
                   <ul class="selected">
                     <%filter.selected.each do |entity|%>
-                      <%display = filter_name == :article_type ? entity : entity.title %>
+                      <%display = entity.title %>
                       <li><%=link_to display, filter.remove(entity).path%></li>
                     <%end%>
                     </ul>
@@ -32,7 +32,7 @@
                     <%filter.facet.reject(&:selected).each do |facet_value|%>
                       <%entity = facet_value.entity%>
                       <li>
-                        <%display = filter_name == :article_type ? entity : entity.title %>
+                        <%display = entity.title %>
                           <%=link_to display, filter.add(entity).path%>
                         <%end%>
                       </li>
@@ -62,7 +62,7 @@
                 <div class="filter-values">
                   <ul class="selected">
                     <%filter.selected.each do |entity|%>
-                      <%display = filter_name == :article_type ? entity : entity.full_name %>
+                      <%display = entity.full_name %>
                       <li><%=link_to display, filter.remove(entity).path%></li>
                     <%end%>
                     </ul>
@@ -70,7 +70,7 @@
                     <%filter.facet.reject(&:selected).each do |facet_value|%>
                       <%entity = facet_value.entity%>
                       <li>
-                        <%display = filter_name == :article_type ? entity : entity.full_name %>
+                        <%display = entity.full_name %>
                           <%=link_to display, filter.add(entity).path%>
                         <%end%>
                       </li>
@@ -100,7 +100,7 @@
                 <div class="filter-values">
                   <ul class="selected">
                     <%filter.selected.each do |entity|%>
-                      <%display = filter_name == :article_type ? entity : entity.full_name %>
+                      <%display = entity %>
                       <li><%=link_to display, filter.remove(entity).path%></li>
                     <%end%>
                     </ul>
@@ -108,7 +108,7 @@
                     <%filter.facet.reject(&:selected).each do |facet_value|%>
                       <%entity = facet_value.entity%>
                       <li>
-                        <%display = filter_name == :article_type ? entity : entity.full_name %>
+                        <%display = entity %>
                           <%=link_to display, filter.add(entity).path%>
                         <%end%>
                       </li>
@@ -138,7 +138,9 @@
       <div class="input-group">
         <%=text_field_tag "disabled", year_filter.value, class: "form-control", id: "year-range-display", disabled: true, placeholder: "Year"%>
         <%other_params.each do |key, value|%>
-          <%= hidden_field_tag "search[#{key}]", value%>
+          <% unless key == "article_year"%>
+            <%= hidden_field_tag "search[#{key}]", value%>
+          <% end %>
         <%end%>
         <%= hidden_field_tag "search[article_year]", year_filter.value, class: "form-control", id: "year-range", data: { "absolute-min" => year_filter.absolute_min, "absolute-max" => year_filter.absolute_max }%>
         <div class="input-group-btn">
@@ -150,9 +152,21 @@
     <br>
     <div class="center"><%=link_to 'Reset All Filters', '?', class: 'btn btn-default btn-sm'%></div>
   </div>
+
   <div class="maincol">
+
   <div class="row">
-  <br> Put filter display here.<br>
+  <ul class="nav nav-pills">
+  <%[:contributors, :periodical, :article_type].each do |filter_name|%>
+    <% selected(filter_name) %>
+    <% filter = @search.filter(filter_name)%>
+    <%@link.each do |key, value|%>
+      <li><%=link_to key, filter.remove(value).path%></li>
+    <%end%>
+  <%end%>
+
+  <li></li>
+  </ul>
   </div>
 
     <div class="panel panel-default">
