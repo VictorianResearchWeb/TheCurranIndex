@@ -156,7 +156,7 @@
     <% selected(filter_name) %>
     <% filter = @search.filter(filter_name)%>
     <%@link.each do |key, value|%>
-      <li><%=link_to key, filter.remove(value).path%></li>
+      <li><%=link_to "x #{key}", filter.remove(value).path%></li>
     <%end%>
   <%end%>
 
