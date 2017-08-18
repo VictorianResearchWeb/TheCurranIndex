@@ -23,8 +23,8 @@ module ArticlesHelper
       
     elsif filter_name == :article_year
       @link = {}
-      filter.select.each do |entity|
-        @link.store(filter_name, entity)
+      unless filter.value.nil?
+        @link.store(filter.value[0], filter.value)
       end
     end
     return @link
