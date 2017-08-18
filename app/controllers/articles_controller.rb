@@ -4,11 +4,6 @@ class ArticlesController < ApplicationController
     @periodicals = Periodical.order(:title)
     @search = ArticleSearch.new(params)
     @list = @search.result.includes(:contributors, :periodical, :month).periodical_order.paginate(page: params[:page], :per_page => 20)
-#    @periodical = Periodical.find_by(id: 1)
-    
-#    @list = @periodical.articles.includes(:periodical, :month).group_by(&:volume)
-
-#    @articles = Article.order(:title).paginate(:page => params[:page], :per_page => 30)
   end
 
   def contributor

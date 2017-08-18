@@ -21,6 +21,11 @@ module ArticlesHelper
         @link.store(entity, entity)
       end
       
+    elsif filter_name == :article_year
+      @link = {}
+      filter.select.each do |entity|
+        @link.store(filter_name, entity)
+      end
     end
     return @link
   end

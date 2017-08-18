@@ -7,6 +7,7 @@ class Article < ActiveRecord::Base
   scope :periodical_order, -> { joins(:periodical).merge(Periodical.order(title: :asc)).order(volume: :asc).order(title: :asc)}
 
   scope :order_by_date, -> { order(:article_year).order(:month_id)}
+  scope :range_by_date, -> (first, last) { where("article_year >= ? AND article_year <= ?", first, last )}
 
   #concatenate date information for display
   def date
