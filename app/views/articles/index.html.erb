@@ -66,7 +66,7 @@
                       <li><%=link_to display, filter.remove(entity).path%></li>
                     <%end%>
                     </ul>
-                  <ul class="selectable">
+                  <ul>
                     <%filter.facet.reject(&:selected).each do |facet_value|%>
                       <%entity = facet_value.entity%>
                       <li>
@@ -167,12 +167,10 @@
     <div class="panel panel-default">
       <div class="panel-body"> 
         <%if params[:search].nil? %>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-          tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-          quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-          consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-          cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-          proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+          <p>Welcome to the Curran Index, a reference project whose mission is to identify the men and women whose stories, poems, and articles appeared anonymously in 19th-century British periodicals. The index is named after Eileen Curran, one of the original editors of the ground-breaking Wellesley Index to Victorian Periodicals. Eileen continued her dedicated life-long pursuit of attribution scholarship well into the 21st century. In 2002 Patrick Leary brought her body of work to the web through his Victorian Research Web; for the ensuing decade and a half Patrick has encouraged and supported attribution scholarship, published updates, and kept this information accessible. After Eileen’s death in 2013, he recruited a new editor to continue the project.</p>
+          <p>Now, with a thank you to Patrick, and with the generous support of the Research Society for Victorian Periodicals, this ever-growing body of data -- currently encompassing over 16,000 articles, more than 2,000 contributors, and an enhanced range of periodicals – is reintroduced in a new format, as a still freely accessible and now fully searchable database. There are many surprises and intriguing clues to be found in the Curran Index, and I invite you to enjoy and explore them to your heart's content.  I also invite you to get in touch with me with any questions or comments, and especially to let me know about your own researches into the identities of anonymous Victorian contributors to the periodical press.</p>
+          <p>Gary Simons<br>
+            Editor, Curran Index</p>
         <%else%>
           <ul class= "list-unstyled">
             <%@list.each do |art|%>

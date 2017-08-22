@@ -3,11 +3,11 @@ class Article < ActiveRecord::Base
   belongs_to :periodical
   belongs_to :month
 
-  scope :order_by_volume, -> { order(volume: :asc)}
-  scope :periodical_order, -> { joins(:periodical).merge(Periodical.order(title: :asc)).order(volume: :asc).order(title: :asc)}
+  scope :contents_order, -> { order(:issue_number).order(:page_start).order(:page_end)}
+  scope :periodical_order, -> { joins(:periodical).merge(Periodical.order(title: :asc)).order(volume: :asc)}
 
   scope :order_by_date, -> { order(:article_year).order(:month_id)}
-  scope :range_by_date, -> (first, last) { where("article_year >= ? AND article_year <= ?", first, last )}
+  #scope :range_by_date, -> (first, last) { where("article_year >= ? AND article_year <= ?", first, last )}
 
   #concatenate date information for display
   def date
@@ -32,7 +32,13 @@ class Article < ActiveRecord::Base
   def periodical_citation
     all_contributors = self.contributors.map{|contributor| contributor.first_last_name}
 
-    array = [self.periodical.abbreviation, self.code, "<b>#{self.title}</b>", self.pages, self.date, all_contributors, self.attribution_confidence, self.attribution]
+    if self.code == "none"
+      code = ""
+    else
+      code = self.code
+    end
+
+    array = [self.periodical.abbreviation, code, "<b>#{self.title}</b>", self.pages, self.date, all_contributors, self.attribution_confidence, self.attribution]
     citation = array.reject(&:blank?).join(", ").to_s
 
     unless self.article_type == "prose"
