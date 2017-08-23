@@ -63,7 +63,7 @@
                 <div class="filter-values">
                   <ul class="selected">
                     <%filter.selected.each do |entity|%>
-                      <%display = entity.full_name %>
+                      <%display = "#{entity.full_name} #{entity.identifier}"%>
                       <li><%=link_to display, filter.remove(entity).path%></li>
                     <%end%>
                     </ul>
@@ -71,7 +71,7 @@
                     <%filter.facet.reject(&:selected).each do |facet_value|%>
                       <%entity = facet_value.entity%>
                       <li>
-                        <%display = entity.full_name %>
+                        <%display = "#{entity.full_name} #{entity.identifier}"%>
                           <%=link_to display, filter.add(entity).path%>
                         <%end%>
                       </li>
