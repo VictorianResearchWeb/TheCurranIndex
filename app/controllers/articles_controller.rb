@@ -26,6 +26,10 @@ class ArticlesController < ApplicationController
   def date_range
     date_range = params["date_range"]
     string = Rack::Utils.parse_nested_query(params["search_params"])
+
+    if string.key?("article_year")
+      string.delete("article_year")
+    end
     search_params = { "search" => string}
     @search = ArticleSearch.new(search_params)
     year_filter = @search.filter(:article_year)

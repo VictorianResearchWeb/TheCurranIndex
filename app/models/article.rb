@@ -44,6 +44,10 @@ class Article < ActiveRecord::Base
     unless self.article_type == "prose"
       citation = citation + " [#{self.article_type}]"
     end
+    citation = citation + " #{self.entry_month}"
+    unless self.payment.nil?
+      citation = citation + " #{self.payment}"
+    end
     return citation
   end
 
