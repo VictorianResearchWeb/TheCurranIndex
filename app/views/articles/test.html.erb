@@ -1,5 +1,6 @@
+
 <div class="header" id="header_image">
-      <h1 class="center bold">The Curran Index</h1>
+  <h1 class="center bold">The Curran Index</h1>
 </div>
 <div class="columns">
   <div class="sidecol">
@@ -121,7 +122,6 @@
       </div>
     </div>
      <div>
-      <%=form_tag nil, method: :get do%>
       <% year_filter = @search.filter(:article_year)%>
       <div class="slider-row">
         <div class = "slider" id="slider-range"></div>
@@ -132,43 +132,36 @@
           <%=year_filter.absolute_max%>
         </div>
       </div>
-
       <br>
       <div class="input-group">
         <%=text_field_tag "disabled", year_filter.value, class: "form-control", id: "year-range-display", disabled: true, placeholder: "Year"%>
-        <%= hidden_field_tag 'article_year', year_filter.value, class: "form-control", id: "year-range", data: { "absolute-min" => year_filter.absolute_min, "absolute-max" => year_filter.absolute_max }%>
+        <%= hidden_field_tag 'date_range', year_filter.value, class: "form-control", id: "year-range", data: { "absolute-min" => year_filter.absolute_min, "absolute-max" => year_filter.absolute_max }%>
         <div class="input-group-btn">
-        <%=link_to 'Search', year_filter.add("1830 - 1860").path, class: 'btn btn-default'%>
-        <!--   <button type="submit" class="btn btn-default">Search</button> -->
+         <button type="submit" class="btn btn-default" id="range-filter">Search</button>
+        
         </div>
       </div>
-      <%end%>
     </div>    
-    <br>
-    <div class="slider" id="range"></div>
-    <input type="text" id="filtered">
-    <%=link_to 'range', test_path(min: 1844, max: 1854)%>
-
+ 
   </div>
   <div class="maincol">
-  <div class="row">
-    <%unless params[:search].nil?%>
-    <div class="right"><%=link_to 'Reset All Filters', '?', class: 'btn btn-default btn-sm'%></div>
-    <%end%>
-  <ul class="nav nav-pills">
-  <%[:contributors, :periodical, :article_type, :article_year].each do |filter_name|%>
-    <% selected(filter_name) %>
-    <% filter = @search.filter(filter_name)%>
-      <%unless filter.empty?%>
-        <%@link.each do |key, value|%>
-          <li><%=link_to "x #{key}", filter.remove(value).path%></li>
-        <%end%>
+    <div class="row">
+      <%unless params[:search].nil?%>
+      <div class="nav">
+        <ul class="nav-pills">
+          <li class="btn btn-sm btn-default"><%=link_to 'Reset All Filters', '?'%></li>
+          <%[:contributors, :periodical, :article_type, :article_year].each do |filter_name|%>
+            <% selected(filter_name) %>
+            <% filter = @search.filter(filter_name)%>
+              <%unless filter.empty?%>
+                <%@link.each do |key, value|%>
+                  <li class="btn btn-sm btn-default"><%=link_to "x #{key}", filter.remove(value).path%></li>
+                <%end%>
+              <%end%>
+          <%end%>
+        </ul>
       <%end%>
-  <%end%>
-
-  <li></li>
-  </ul>
-  </div>
+    </div>
   <br>
     <div class="panel panel-default">
       <div class="panel-body"> 
@@ -192,7 +185,6 @@
       </div>
       <%end%>
   </div>
-</div>
 
 <script type="text/javascript">
   $(function() {
@@ -202,7 +194,6 @@
 
     var current_min = abs_min;
     var current_max = abs_max;
-    //$("#year-range-display").val(current_min + " - " + current_max);
 
     if (current != '') {
       var splits = current.split(' - ');
@@ -219,19 +210,16 @@
         $( "#year-range-display" ).val( ui.values[ 0 ] + " - " + ui.values[ 1 ] );
       }
     });
+      var date_range = $("#year-range-display");
+      var params = "<%=@search.params.to_query%>"
+    $("#range-filter").click(function(e){
+      e.preventDefault();
+      $.ajax({
+        method: 'GET',
+        url: 'date_range',
+        data: { date_range: date_range[0].value,
+        search_params: params }
+      });
+    });
   });
-  $(function(){
-      var minimum = "<%= @minimum %>";
-      var maximum = "<%= @maximum %>";
-    $("#range").slider({
-      range: true,
-      min: minimum,
-      max: maximum,
-      values: [minimum, maximum],
-      slide: function(event, ui){
-        $("#filtered").val((ui.values[0]) + " - " + (ui.values[1]));
-      }
-
-    })
-  })
-  </script>
+</script>

@@ -1,5 +1,6 @@
+
 <div class="header" id="header_image">
-      <h1 class="center bold">The Curran Index</h1>
+  <h1 class="center bold">The Curran Index</h1>
 </div>
 <div class="columns">
   <div class="sidecol">
@@ -66,7 +67,7 @@
                       <li><%=link_to display, filter.remove(entity).path%></li>
                     <%end%>
                     </ul>
-                  <ul>
+                  <ul class="selectable">
                     <%filter.facet.reject(&:selected).each do |facet_value|%>
                       <%entity = facet_value.entity%>
                       <li>
@@ -120,8 +121,7 @@
         </div>
       </div>
     </div>
-<!--     <div>
-      <%#=form_tag nil, method: :get do%>
+     <div>
       <% year_filter = @search.filter(:article_year)%>
       <div class="slider-row">
         <div class = "slider" id="slider-range"></div>
@@ -132,45 +132,46 @@
           <%=year_filter.absolute_max%>
         </div>
       </div>
-
       <br>
       <div class="input-group">
-        <%#=text_field_tag "disabled", year_filter.value, class: "form-control", id: "year-range-display", disabled: true, placeholder: "Year"%>
-        <%#= hidden_field_tag 'article_year', year_filter.value, class: "form-control", id: "year-range", data: { "absolute-min" => year_filter.absolute_min, "absolute-max" => year_filter.absolute_max }%>
+        <%=text_field_tag "disabled", year_filter.value, class: "form-control", id: "year-range-display", disabled: true, placeholder: "Year"%>
+        <%= hidden_field_tag 'date_range', year_filter.value, class: "form-control", id: "year-range", data: { "absolute-min" => year_filter.absolute_min, "absolute-max" => year_filter.absolute_max }%>
         <div class="input-group-btn">
-        <%#=link_to 'Search', year_filter.add.path, class: 'btn btn-default'%>
-             <button type="submit" class="btn btn-default">Search</button>   
+         <button type="submit" class="btn btn-default" id="range-filter">Search</button>
+        
         </div>
       </div>
-      <%#end%>
     </div>    
- -->    <br>
-    <div class="center"><%=link_to 'Reset All Filters', '?', class: 'btn btn-default btn-sm'%></div>
+ 
   </div>
-
   <div class="maincol">
-
-  <div class="row">
-  <ul class="nav nav-pills">
-  <%[:contributors, :periodical, :article_type].each do |filter_name|%>
-    <% selected(filter_name) %>
-    <% filter = @search.filter(filter_name)%>
-    <%@link.each do |key, value|%>
-      <li><%=link_to "x #{key}", filter.remove(value).path%></li>
-    <%end%>
-  <%end%>
-
-  <li></li>
-  </ul>
-  </div>
-
+    <div class="row">
+      <%unless params[:search].nil?%>
+      <div class="nav">
+        <ul class="nav-pills">
+          <li class="btn btn-sm btn-default"><%=link_to 'Reset All Filters', '?'%></li>
+          <%[:contributors, :periodical, :article_type, :article_year].each do |filter_name|%>
+            <% selected(filter_name) %>
+            <% filter = @search.filter(filter_name)%>
+              <%unless filter.empty?%>
+                <%@link.each do |key, value|%>
+                  <li class="btn btn-sm btn-default"><%=link_to "x #{key}", filter.remove(value).path%></li>
+                <%end%>
+              <%end%>
+          <%end%>
+        </ul>
+      <%end%>
+    </div>
+  <br>
     <div class="panel panel-default">
       <div class="panel-body"> 
         <%if params[:search].nil? %>
-          <p>Welcome to the Curran Index, a reference project whose mission is to identify the men and women whose stories, poems, and articles appeared anonymously in 19th-century British periodicals. The index is named after Eileen Curran, one of the original editors of the ground-breaking Wellesley Index to Victorian Periodicals. Eileen continued her dedicated life-long pursuit of attribution scholarship well into the 21st century. In 2002 Patrick Leary brought her body of work to the web through his Victorian Research Web; for the ensuing decade and a half Patrick has encouraged and supported attribution scholarship, published updates, and kept this information accessible. After Eileen’s death in 2013, he recruited a new editor to continue the project.</p>
-          <p>Now, with a thank you to Patrick, and with the generous support of the Research Society for Victorian Periodicals, this ever-growing body of data -- currently encompassing over 16,000 articles, more than 2,000 contributors, and an enhanced range of periodicals – is reintroduced in a new format, as a still freely accessible and now fully searchable database. There are many surprises and intriguing clues to be found in the Curran Index, and I invite you to enjoy and explore them to your heart's content.  I also invite you to get in touch with me with any questions or comments, and especially to let me know about your own researches into the identities of anonymous Victorian contributors to the periodical press.</p>
-          <p>Gary Simons<br>
-            Editor, Curran Index</p>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+          tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+          quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+          consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+          cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+          proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
         <%else%>
           <ul class= "list-unstyled">
             <%@list.each do |art|%>
@@ -184,7 +185,6 @@
       </div>
       <%end%>
   </div>
-</div>
 
 <script type="text/javascript">
   $(function() {
@@ -194,8 +194,6 @@
 
     var current_min = abs_min;
     var current_max = abs_max;
-
-    //$("#year-range-display").val(current_min + " - " + current_max);
 
     if (current != '') {
       var splits = current.split(' - ');
@@ -212,5 +210,16 @@
         $( "#year-range-display" ).val( ui.values[ 0 ] + " - " + ui.values[ 1 ] );
       }
     });
+      var date_range = $("#year-range-display");
+      var params = "<%=@search.params.to_query%>"
+    $("#range-filter").click(function(e){
+      e.preventDefault();
+      $.ajax({
+        method: 'GET',
+        url: 'date_range',
+        data: { date_range: date_range[0].value,
+        search_params: params }
+      });
+    });
   });
-  </script>
+</script>
