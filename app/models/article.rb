@@ -6,26 +6,27 @@ class Article < ActiveRecord::Base
   scope :contents_order, -> { order(:issue_number).order(:page_start).order(:page_end)}
   scope :periodical_order, -> { joins(:periodical).merge(Periodical.order(title: :asc)).order(volume: :asc)}
 
-  scope :order_by_date, -> { order(:article_year).order(:month_id)}
-  #scope :range_by_date, -> (first, last) { where("article_year >= ? AND article_year <= ?", first, last )}
-
   #concatenate date information for display
   def date
-    date = [self.month.publication_month, "#{self.day}, ", self.article_year].reject(&:blank?).join(" ").to_s
-  end
-
-  def pages
-    "#{self.page_start} - #{self.page_end}"
-  end
-
-  def author_citation
-    array = [self.periodical.abbreviation, self.code, self.attribution_confidence, "Volume #{self.volume}", self.date, self.title, self.pages]
-    citation = array.reject(&:blank?).join(", ").to_s
-
-    unless self.article_type == "prose"
-      citation = citation + " [#{self.article_type}]"
+    if self.day
+      day = "#{self.day}, "
+    else
+      day = self.day
     end
-    return citation
+
+    date = [self.month.publication_month, day, self.article_year].reject(&:blank?).join(" ").to_s
+  end
+
+  #concatenate page numbers unless blank
+  def pages
+    if self.page_start && self.page_end
+      pages = "#{self.page_start} - #{self.page_end}"
+    elsif self.page_start && !self.page_end
+      pages = self.page_start
+    else
+      pages = nil
+    end
+    return pages
   end
 
 #create string of article information for periodical citation
