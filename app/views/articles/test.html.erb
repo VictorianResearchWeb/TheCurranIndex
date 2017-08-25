@@ -141,17 +141,17 @@
     </div>
     <br>
     <%unless params[:search].nil?%>
-      <div class="panel panel-default panel-body">
-        <%[:contributors, :periodical, :article_type, :article_year].each do |filter_name|%>
-          <% comment(filter_name) %>
-            <% unless @comment.nil? %>
+      <%[:contributors, :periodical, :article_type, :article_year].each do |filter_name|%>
+        <% comment(filter_name) %>
+          <% unless @comment.nil? %>
+              <div class="inline-block">
               <% @comment.each do |key, value| %>
                 <p><b><%= key %><br></b>
                 <%= raw value %></p>
               <% end %>
+              </div>
             <% end %>
         <% end %>
-      </div>
     <% end %>
   <br>
     <div class="panel panel-default">
@@ -175,6 +175,9 @@
       </div>
       <%end%>
   </div>
+  </div>
+  </div>
+  <div>
 <script type="text/javascript">
   $(function() {
     var current = $('#year-range').val();
@@ -225,3 +228,4 @@
   });
 
 </script>
+</div>

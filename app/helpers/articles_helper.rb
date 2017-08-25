@@ -32,16 +32,16 @@ module ArticlesHelper
 
   def comment(filter_name)
     filter = @search.filter(filter_name)
-    if filter_name == :contributors
-      @comment = {}
-      filter.selected.each do |entity|
-        @comment.store(entity.first_last_name, entity.comment)
-      end
-    elsif filter_name == :periodical
+    if filter_name == :periodical
       @comment = {}
       filter.selected.each do |entity|
         @comment.store(entity.title, entity.comment)
       end
+#    elsif filter_name == :contributors
+#      @comment = {}
+#      filter.selected.each do |entity|
+#        @comment.store(entity.first_last_name, entity.comment)
+#      end
     else
       @comment = nil
     end
