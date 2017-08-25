@@ -1,7 +1,3 @@
-
-<div class="header" id="header_image">
-  <h1 class="center bold">The Curran Index</h1>
-</div>
 <div class="columns">
   <div class="sidecol">
     <h4 class="center"><br><b>Filter By</b><br></h4>
@@ -168,7 +164,7 @@
         <%if params[:search].nil? %>
           <p>Welcome to the Curran Index, a reference project whose mission is to identify the men and women whose stories, poems, and articles appeared anonymously in 19th-century British periodicals. The index is named after Eileen Curran, one of the original editors of the ground-breaking Wellesley Index to Victorian Periodicals. Eileen continued her dedicated life-long pursuit of attribution scholarship well into the 21st century. In 2002 Patrick Leary brought her body of work to the web through his Victorian Research Web; for the ensuing decade and a half Patrick has encouraged and supported attribution scholarship, published updates, and kept this information accessible. After Eileen’s death in 2013, he recruited a new editor to continue the project.</p>
           <p>Now, with a thank you to Patrick, and with the generous support of the Research Society for Victorian Periodicals, this ever-growing body of data -- currently encompassing over 16,000 articles, more than 2,000 contributors, and an enhanced range of periodicals – is reintroduced in a new format, as a still freely accessible and now fully searchable database. There are many surprises and intriguing clues to be found in the Curran Index, and I invite you to enjoy and explore them to your heart's content.  I also invite you to get in touch with me with any questions or comments, and especially to let me know about your own researches into the identities of anonymous Victorian contributors to the periodical press.</p>
-          <p>Gary Simons<br>
+          <p><%=mail_to "#{Contact.first.email}", "Gary Simons"%><br>
           Editor, Curran Index</p>
 
         <%else%>
@@ -184,41 +180,45 @@
       </div>
       <%end%>
   </div>
+</div>
+</div>
 
-<script type="text/javascript">
-  $(function() {
-    var current = $('#year-range').val();
-    var abs_min = parseFloat($('#year-range').attr('data-absolute-min'));
-    var abs_max = parseFloat($('#year-range').attr('data-absolute-max'));
+<div>
+  <script type="text/javascript">
+    $(function() {
+      var current = $('#year-range').val();
+      var abs_min = parseFloat($('#year-range').attr('data-absolute-min'));
+      var abs_max = parseFloat($('#year-range').attr('data-absolute-max'));
 
-    var current_min = abs_min;
-    var current_max = abs_max;
+      var current_min = abs_min;
+      var current_max = abs_max;
 
-    if (current != '') {
-      var splits = current.split(' - ');
-      current_min = parseFloat(splits[0]);
-      current_max = parseFloat(splits[1]);
-    }
-    $( "#slider-range" ).slider({
-      range: true,
-      min: abs_min,
-      max:  abs_max,
-      values: [ current_min, current_max ],
-      slide: function( event, ui ) {
-        $( "#year-range" ).val( ui.values[ 0 ] + " - " + ui.values[ 1 ] );
-        $( "#year-range-display" ).val( ui.values[ 0 ] + " - " + ui.values[ 1 ] );
+      if (current != '') {
+        var splits = current.split(' - ');
+        current_min = parseFloat(splits[0]);
+        current_max = parseFloat(splits[1]);
       }
-    });
-      var date_range = $("#year-range-display");
-      var params = "<%=@search.params.to_query%>"
-    $("#range-filter").click(function(e){
-      e.preventDefault();
-      $.ajax({
-        method: 'GET',
-        url: 'date_range',
-        data: { date_range: date_range[0].value,
-        search_params: params }
+      $( "#slider-range" ).slider({
+        range: true,
+        min: abs_min,
+        max:  abs_max,
+        values: [ current_min, current_max ],
+        slide: function( event, ui ) {
+          $( "#year-range" ).val( ui.values[ 0 ] + " - " + ui.values[ 1 ] );
+          $( "#year-range-display" ).val( ui.values[ 0 ] + " - " + ui.values[ 1 ] );
+        }
+      });
+        var date_range = $("#year-range-display");
+        var params = "<%=@search.params.to_query%>"
+      $("#range-filter").click(function(e){
+        e.preventDefault();
+        $.ajax({
+          method: 'GET',
+          url: 'date_range',
+          data: { date_range: date_range[0].value,
+          search_params: params }
+        });
       });
     });
-  });
-</script>
+  </script>
+</div>

@@ -13,6 +13,7 @@
  *= require_tree .
  *= require_self
  *= require jquery-ui/slider
+ *= require jquery-ui/autocomplete
  */
 @import 'bootstrap-sprockets';
 @import 'bootstrap';
@@ -31,8 +32,6 @@ body {
     padding: $gapSize;
     display: table-cell;
     vertical-align: top;
-    &:first-child { padding-left: 0; }
-    &:last-child { padding-right: 0; }
   }
   .maincol {
     width: 70%;
@@ -157,4 +156,7 @@ body {
    }
 }
 
-
+.nav-item {
+  margin: 10px;
+  color: #000;
+}
