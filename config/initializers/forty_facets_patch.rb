@@ -1,7 +1,8 @@
 module FortyFacets
   class RangeFilterDefinition < FilterDefinition
     class RangeFilter < Filter
-
+  #this initializer is required to allow the date range functionality in forty facets
+  #to be added to the path in any order
       def min_value
         return nil if empty?
         value[0].split(' - ').first

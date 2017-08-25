@@ -52,5 +52,4 @@ class Article < ActiveRecord::Base
     return citation
   end
 
-
 end

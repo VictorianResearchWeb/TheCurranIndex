@@ -38,13 +38,16 @@ ActiveRecord::Schema.define(version: 1) do
   add_index "articles", ["page_start"], name: "page_start", using: :btree
   add_index "articles", ["periodical_id"], name: "periodical_id", using: :btree
 
-  create_table "articles-contributors", id: false, force: :cascade do |t|
-    t.integer "articles_id",     limit: 4,              null: false
-    t.integer "contributors_id", limit: 4, default: 28, null: false
+  create_table "articles_contributors", id: false, force: :cascade do |t|
+    t.integer "article_id",     limit: 4,              null: false
+    t.integer "contributor_id", limit: 4, default: 28, null: false
   end
 
-  add_index "articles-contributors", ["articles_id"], name: "articles_id", using: :btree
-  add_index "articles-contributors", ["contributors_id"], name: "contributors_id", using: :btree
+  add_index "articles_contributors", ["article_id"], name: "article_id", using: :btree
+  add_index "articles_contributors", ["contributor_id"], name: "contributor_id", using: :btree
+
+  create_table "contacts", primary_key: "email", force: :cascade do |t|
+  end
 
   create_table "contributors", force: :cascade do |t|
     t.string   "full_name",   limit: 255

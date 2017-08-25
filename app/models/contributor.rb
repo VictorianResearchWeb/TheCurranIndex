@@ -1,14 +1,5 @@
 class Contributor < ActiveRecord::Base
-#  has_many :article_contributor_links
-#  has_many :articles, through: :article_contributor_links
   has_and_belongs_to_many :articles
-
-  scope :by_periodical, ->(periodical) { joins(articles: :periodical).where(articles: {periodical_id: periodical})}
-
-  #scope :names_by_article, ->(articles) {joins(:articles).where(articles: {id: articles.ids}).pluck(:full_name)}
-
-  scope :names_by_article, -> {pluck(:full_name) }
-
 
   def birthdate
     if self.birth
@@ -32,8 +23,22 @@ class Contributor < ActiveRecord::Base
     self.full_name.split(",").reverse.join(" ").strip
   end
 
+  def lifespan
+    if self.birthdate && self.deathdate
+      lifespan = "#{self.birthdate} - #{self.deathdate}"
+    elsif self.birthdate && !self.deathdate
+      lifespan = self.birthdate
+    elsif !self.birthdate && self.deathdate
+      lifespan = "? - #{self.deathdate}"
+    else
+      lifespan = nil
+    end
+    return lifespan
+  end
+  
+  #concatenate biographical information on a contributor
   def biography
-    array = [self.first_last_name, self.birthdate, "- #{self.deathdate}", self.nationality, self.education]
+    array = [self.birthdate, "- #{self.deathdate}", "<br>", self.nationality, "<br>", self.education, "<br>", self.comment]
     biography = array.reject(&:blank?).join(" ").to_s
     return biography
   end

@@ -37,6 +37,11 @@ class CreateDatabase < ActiveRecord::Migration
       add_index "articles_contributors", ["contributor_id"], name: "Contributors_ID", using: :btree
     end
 
+    unless table_exists?("contacts")
+      create_table "contacts", primary_key: "email", force: :cascade do |t|
+      end
+    end
+
     unless table_exists?("contributors")
       create_table "contributors", force: :cascade do |t|
         t.string   "full_name",   limit: 255
