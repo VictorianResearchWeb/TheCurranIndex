@@ -43,6 +43,10 @@
           <div class="panel-body">
             <%[:contributors].each do |filter_name|%>
               <%filter = @search.filter(filter_name)%>
+              <div>
+                <% names = filter.facet.map {|facet_value| facet_value.entity}%>
+                <%=select_tag 'contributor', options_from_collection_for_select(names, 'id', 'full_name')%>
+              </div>
               <div class="filter">
                 <div class="filter-values">
                   <ul class="selectable">
