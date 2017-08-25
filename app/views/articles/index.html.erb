@@ -15,16 +15,7 @@
             <%[:periodical].each do |filter_name|%>
               <%filter = @search.filter(filter_name)%>
               <div class="filter">
-                <div class="filter-title">
-                  <p><%=filter.name%></p>
-                </div>
                 <div class="filter-values">
-                  <ul class="selected">
-                    <%filter.selected.each do |entity|%>
-                      <%display = entity.title %>
-                      <li><%=link_to display, filter.remove(entity).path%></li>
-                    <%end%>
-                    </ul>
                   <ul class="selectable">
                     <%filter.facet.reject(&:selected).each do |facet_value|%>
                       <%entity = facet_value.entity%>
@@ -53,16 +44,7 @@
             <%[:contributors].each do |filter_name|%>
               <%filter = @search.filter(filter_name)%>
               <div class="filter">
-                <div class="filter-title">
-                  <p><%=filter.name%></p>
-                </div>
                 <div class="filter-values">
-                  <ul class="selected">
-                    <%filter.selected.each do |entity|%>
-                      <%display = "#{entity.full_name} #{entity.identifier}"%>
-                      <li><%=link_to display, filter.remove(entity).path%></li>
-                    <%end%>
-                    </ul>
                   <ul class="selectable">
                     <%filter.facet.reject(&:selected).each do |facet_value|%>
                       <%entity = facet_value.entity%>
@@ -91,16 +73,7 @@
             <%[:article_type].each do |filter_name|%>
               <%filter = @search.filter(filter_name)%>
               <div class="filter">
-                <div class="filter-title">
-                  <p><%=filter.name%></p>
-                </div>
                 <div class="filter-values">
-                  <ul class="selected">
-                    <%filter.selected.each do |entity|%>
-                      <%display = entity %>
-                      <li><%=link_to display, filter.remove(entity).path%></li>
-                    <%end%>
-                    </ul>
                   <ul class="selectable">
                     <%filter.facet.reject(&:selected).each do |facet_value|%>
                       <%entity = facet_value.entity%>
@@ -138,7 +111,6 @@
         </div>
       </div>
     </div>    
- 
   </div>
   <div class="maincol">
     <div class="row">
@@ -158,6 +130,20 @@
         </ul>
       <%end%>
     </div>
+    <br>
+    <%unless params[:search].nil?%>
+      <%[:contributors, :periodical, :article_type, :article_year].each do |filter_name|%>
+        <% comment(filter_name) %>
+          <% unless @comment.nil? %>
+              <div class="inline-block">
+              <% @comment.each do |key, value| %>
+                <p><b><%= key %><br></b>
+                <%= raw value %></p>
+              <% end %>
+              </div>
+            <% end %>
+        <% end %>
+    <% end %>
   <br>
     <div class="panel panel-default">
       <div class="panel-body"> 
@@ -170,7 +156,7 @@
         <%else%>
           <ul class= "list-unstyled">
             <%@list.each do |art|%>
-              <p><%= raw art.periodical_citation%></p>
+              <p><%= raw citation(art)%></p>
             <%end%>
           </ul>
       </div>
@@ -179,11 +165,10 @@
         <%= will_paginate @list%>
       </div>
       <%end%>
+    </div>
   </div>
-</div>
-</div>
-
-<div>
+</div>  
+<% content_for :js do %>  
   <script type="text/javascript">
     $(function() {
       var current = $('#year-range').val();
@@ -220,5 +205,18 @@
         });
       });
     });
+    $(function(){
+      $('.popover-author').popover({
+        html: true,
+        placement: 'bottom'
+      });
+    });
+    $(function(){
+      $('.popover-periodical').popover({
+        html: true,
+        placement: 'bottom'
+      });
+    });
+
   </script>
-</div>
+<%end%>

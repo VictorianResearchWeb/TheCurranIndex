@@ -53,8 +53,13 @@ module ArticlesHelper
     all_contributors = []
     authors.each do |c|
       contributor = Contributor.find_by(full_name: c)
-      body = contributor.biography.gsub("'", "")
-      string = "<b><a tabindex='0' class='popover-author' data-toggle='popover' data-trigger='focus' title='#{contributor.first_last_name}' data-content='#{render :partial => 'contributor', :locals => {contributor: contributor}}'> #{contributor.first_last_name}</a></b>"
+      unless contributor.full_name == "Unknown"
+        body = contributor.biography.gsub("'", "")
+        string = "<b><a tabindex='0' class='popover-author' data-toggle='popover' data-trigger='focus' title='#{contributor.first_last_name}' data-content='#{render :partial => 'contributor', :locals => {contributor: contributor}}'> #{contributor.first_last_name}</a></b>"
+      else
+        body = nil
+        string = contributor.full_name
+      end
       all_contributors << string
     end
 
