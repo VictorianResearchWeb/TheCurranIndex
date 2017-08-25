@@ -15,9 +15,6 @@
             <%[:periodical].each do |filter_name|%>
               <%filter = @search.filter(filter_name)%>
               <div class="filter">
-                <div class="filter-title">
-                  <p><%=filter.name%></p>
-                </div>
                 <div class="filter-values">
                   <ul class="selectable">
                     <%filter.facet.reject(&:selected).each do |facet_value|%>
@@ -47,9 +44,6 @@
             <%[:contributors].each do |filter_name|%>
               <%filter = @search.filter(filter_name)%>
               <div class="filter">
-                <div class="filter-title">
-                  <p><%=filter.name%></p>
-                </div>
                 <div class="filter-values">
                   <ul class="selectable">
                     <%filter.facet.reject(&:selected).each do |facet_value|%>
@@ -79,9 +73,6 @@
             <%[:article_type].each do |filter_name|%>
               <%filter = @search.filter(filter_name)%>
               <div class="filter">
-                <div class="filter-title">
-                  <p><%=filter.name%></p>
-                </div>
                 <div class="filter-values">
                   <ul class="selectable">
                     <%filter.facet.reject(&:selected).each do |facet_value|%>
@@ -174,58 +165,58 @@
         <%= will_paginate @list%>
       </div>
       <%end%>
+    </div>
   </div>
-  </div>
-  </div>
-  <div>
-<script type="text/javascript">
-  $(function() {
-    var current = $('#year-range').val();
-    var abs_min = parseFloat($('#year-range').attr('data-absolute-min'));
-    var abs_max = parseFloat($('#year-range').attr('data-absolute-max'));
+</div>  
+<% content_for :js do %>  
+  <script type="text/javascript">
+    $(function() {
+      var current = $('#year-range').val();
+      var abs_min = parseFloat($('#year-range').attr('data-absolute-min'));
+      var abs_max = parseFloat($('#year-range').attr('data-absolute-max'));
 
-    var current_min = abs_min;
-    var current_max = abs_max;
+      var current_min = abs_min;
+      var current_max = abs_max;
 
-    if (current != '') {
-      var splits = current.split(' - ');
-      current_min = parseFloat(splits[0]);
-      current_max = parseFloat(splits[1]);
-    }
-    $( "#slider-range" ).slider({
-      range: true,
-      min: abs_min,
-      max:  abs_max,
-      values: [ current_min, current_max ],
-      slide: function( event, ui ) {
-        $( "#year-range" ).val( ui.values[ 0 ] + " - " + ui.values[ 1 ] );
-        $( "#year-range-display" ).val( ui.values[ 0 ] + " - " + ui.values[ 1 ] );
+      if (current != '') {
+        var splits = current.split(' - ');
+        current_min = parseFloat(splits[0]);
+        current_max = parseFloat(splits[1]);
       }
-    });
-      var date_range = $("#year-range-display");
-      var params = "<%=@search.params.to_query%>"
-    $("#range-filter").click(function(e){
-      e.preventDefault();
-      $.ajax({
-        method: 'GET',
-        url: 'date_range',
-        data: { date_range: date_range[0].value,
-        search_params: params }
+      $( "#slider-range" ).slider({
+        range: true,
+        min: abs_min,
+        max:  abs_max,
+        values: [ current_min, current_max ],
+        slide: function( event, ui ) {
+          $( "#year-range" ).val( ui.values[ 0 ] + " - " + ui.values[ 1 ] );
+          $( "#year-range-display" ).val( ui.values[ 0 ] + " - " + ui.values[ 1 ] );
+        }
+      });
+        var date_range = $("#year-range-display");
+        var params = "<%=@search.params.to_query%>"
+      $("#range-filter").click(function(e){
+        e.preventDefault();
+        $.ajax({
+          method: 'GET',
+          url: 'date_range',
+          data: { date_range: date_range[0].value,
+          search_params: params }
+        });
       });
     });
-  });
-  $(function(){
-    $('.popover-author').popover({
-      html: true,
-      placement: 'bottom'
+    $(function(){
+      $('.popover-author').popover({
+        html: true,
+        placement: 'bottom'
+      });
     });
-  });
-  $(function(){
-    $('.popover-periodical').popover({
-      html: true,
-      placement: 'bottom'
+    $(function(){
+      $('.popover-periodical').popover({
+        html: true,
+        placement: 'bottom'
+      });
     });
-  });
 
-</script>
-</div>
+  </script>
+<%end%>

@@ -1,15 +1,16 @@
+<p>
 <%unless contributor.lifespan.nil?%>
-  <p><%=contributor.lifespan%></p>
+  <%=contributor.lifespan%>
 <% end %>
 
 <%unless contributor.nationality.nil?%>
-  <p><%=contributor.nationality%></p>
+  <br><%=contributor.nationality%>
 <%end%>
 
 <%unless contributor.education.nil?%>
-  <p><%=contributor.education%></p>
+  <br><%=contributor.education%>
 <%end%>
-
+</p>
 <%unless contributor.comment.nil?%>
   <p><%=contributor.comment%></p>
 <%end%>
