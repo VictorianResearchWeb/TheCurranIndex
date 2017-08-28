@@ -29,27 +29,10 @@ class Article < ActiveRecord::Base
     return pages
   end
 
-#create string of article information for periodical citation
-  def periodical_citation
-    all_contributors = self.contributors.map{|contributor| "<b>#{contributor.first_last_name}</b>"}
-
-    if self.code == "none"
-      code = ""
-    else
-      code = self.code
-    end
-
-    array = ["<b>#{self.periodical.abbreviation}</b>", code, self.title, self.pages, self.date, all_contributors, self.attribution_confidence, self.attribution]
-    citation = array.reject(&:blank?).join(", ").to_s
-
-    unless self.article_type == "prose"
-      citation = citation + " [#{self.article_type}]"
-    end
-    citation = citation + " #{self.entry_month}"
-    unless self.payment.nil?
-      citation = citation + " #{self.payment}"
-    end
-    return citation
+  #display payment information as British currency
+  def payments
+    currency = self.payment.insert(6, "d").insert(4, "s.").insert(2, ".").insert(0, "&pound")
+    return currency
   end
 
 end

@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   get '/contributor' => 'articles#contributor', as: :contributor
   get '/periodical' => 'articles#periodical', as: :periodical
   get 'date_range' => 'articles#date_range'
+  get 'title_search' => 'articles#title_search'
 
   get '/test' => 'articles#test'
 

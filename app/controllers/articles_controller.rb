@@ -36,5 +36,15 @@ class ArticlesController < ApplicationController
     render js: "window.location = '#{path}'"
   end
 
+  def title_search
+    title = params["title_search"]
+    string = Rack::Utils.parse_nested_query(params["search_params"])
+    search_params = { "search" => string}
+    @search = ArticleSearch.new(search_params)
+    title_filter = @search.filter(:title)    
+    new_params = title_filter.add(title).path
+    path = test_path + new_params
+    render js: "window.location = '#{path}'"
+  end
 
 end

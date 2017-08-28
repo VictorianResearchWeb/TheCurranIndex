@@ -7,4 +7,6 @@ class ArticleSearch < FortyFacets::FacetSearch
   facet :periodical, name: 'Periodical', order: :title
   facet :article_type, name: 'Article Type'
 
+  text :title, name: 'Search by Title'
+
 end

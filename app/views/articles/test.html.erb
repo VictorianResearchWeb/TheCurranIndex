@@ -1,5 +1,14 @@
 <div class="columns">
   <div class="sidecol">
+    <%=form_tag nil, method: :get do%>
+      <div class="input-group">
+        <% title_filter = @search.filter(:title) %>
+        <%= text_field_tag 'title', title_filter.value, class: 'form-control', id: 'title_value', placeholder: title_filter.name %>
+        <%#= link_to 'Search', title_filter.add("irish").path, class: 'btn btn-default' %>
+         <button type="submit" class="btn btn-default" id="title-filter">Search</button> 
+      </div>
+    <% end %>    
+
     <h4 class="center"><br><b>Filter By</b><br></h4>
     <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
       <div class="panel panel-default">
@@ -43,10 +52,6 @@
           <div class="panel-body">
             <%[:contributors].each do |filter_name|%>
               <%filter = @search.filter(filter_name)%>
-              <div>
-                <% names = filter.facet.map {|facet_value| facet_value.entity}%>
-                <%=select_tag 'contributor', options_from_collection_for_select(names, 'id', 'full_name')%>
-              </div>
               <div class="filter">
                 <div class="filter-values">
                   <ul class="selectable">
@@ -111,10 +116,15 @@
         <%= hidden_field_tag 'date_range', year_filter.value, class: "form-control", id: "year-range", data: { "absolute-min" => year_filter.absolute_min, "absolute-max" => year_filter.absolute_max }%>
         <div class="input-group-btn">
          <button type="submit" class="btn btn-default" id="range-filter">Search</button>
-        
         </div>
       </div>
     </div>    
+    <div>
+      <%unless params[:search].nil? %>
+        <br><br>
+        <b><p>Hover over the periodical abbreviation or contributor name to see detailed information.</p></b>
+      <%end%>
+    </div>
   </div>
   <div class="maincol">
     <div class="row">
@@ -209,16 +219,29 @@
         });
       });
     });
+      $("#title-filter").click(function(e){
+        var params = "<%=@search.params.to_query%>"
+        e.preventDefault();
+        $.ajax({
+          method: 'GET',
+          url: 'title_search',
+          data: { title_search: title_value.value,
+          search_params: params }
+        });
+      });
+
     $(function(){
       $('.popover-author').popover({
         html: true,
-        placement: 'bottom'
+        placement: 'bottom',
+        trigger: 'hover focus'
       });
     });
     $(function(){
       $('.popover-periodical').popover({
         html: true,
-        placement: 'bottom'
+        placement: 'bottom',
+        trigger: 'hover focus'
       });
     });
 
