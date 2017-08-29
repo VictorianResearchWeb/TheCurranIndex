@@ -50,6 +50,8 @@ body {
 .header {
   padding: $gapSize * 2;
   box-shadow: 0 1px 0 rgba(#000, 0.2);
+  width: 100%;
+  text-align: center;
 }
 
 .search {
@@ -170,4 +172,35 @@ body {
 
 .navbar {
   margin: 0;
+}
+
+.nav-bg {
+  background-color: #fbe9d9;
+}
+
+.footer {
+  left: $gapSize;
+  bottom: 0;
+  width: 97%;
+  padding: $gapSize;
+  position: absolute;
+  vertical-align: top;
+  display: inline-block;
+  background: #fbe9d9;
+  box-sizing: border-box;
+}
+
+.footer_copyright {
+    //float: left;
+    text-align: center;
+}
+
+.footer_nav {
+  float: right;
+  margin: 0 0 0 20px;
+  a {
+    margin-left: 1em;
+    padding-left: 1em;
+    display: inline-block;
+  }
 }

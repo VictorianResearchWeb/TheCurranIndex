@@ -7,33 +7,33 @@
 </head>
 <body>
 
-  <div class="container">
+  <div class="container-fluid">
     <div class="header" id="header_image">
       <h1 class="center bold">The Curran Index</h1>
     </div>
-    <div class="center">
-      <nav class="navbar navbar-toggleable-md navbar-light">
+      <nav class="navbar navbar-toggleable-md nav-bg">
         <div class="collapse navbar-collapse">
-          <div class="navbar-nav">
+          <div class="navbar-nav center">
           <%= link_to "Home", root_path, class:"nav-item nav-link btn" %>
+          <%=link_to 'Release Notes', essays_path, class:"nav-item nav-link btn" %>
           <a class="nav-item nav-link btn" href="#">History</a>
           <a class="nav-item nav-link btn" href="#">Attribution Scholarship</a>
           <a class="nav-item nav-link btn" href="#">Related Sites</a>
-          <%=link_to 'Release Notes', essays_path, class:"nav-item nav-link btn" %>
           <a class="nav-item nav-link btn" href="#">Contributors</a>
           <a class="nav-item nav-link btn" href="#">Advanced Search</a>
           <%=mail_to "#{Contact.first.email}", "Contact Us", class: "nav-item nav-link btn"%>
           </div>
+        </div>
       </nav>
-    </div>
-
     <%= yield %>
+      <footer class="footer">
+        <div class="footer_copyright">The Curran Index, &copy;2017  All Rights Reserved</div>
+        <!-- <div class="footer_nav"><%#=mail_to "#{Contact.first.email}", "Contact Us", class: "footer_nav"%></div> -->
+      </footer>
   </div>
-<div class="row">
-  <div class="nav-item">The Curran Index, &copy;2017
-  <%=mail_to "#{Contact.first.email}", "Contact Us", class: "pull-right"%></div>
-</div>
+
     <%= javascript_include_tag 'application'%>
     <%= yield :js %>
+
   </body>
 </html>
