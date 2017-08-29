@@ -2,27 +2,6 @@
   <div class="sidecol">
     <h4 class="center"><br><b>Filter By</b><br></h4>
     <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-      <div class="panel panel-default">
-        <div class="panel-heading" role="tab" id="headingOne">
-          <h4 class="panel-title">
-            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-              Title Search
-            </a>
-          </h4>
-        </div>
-        <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
-          <div class="panel-body">
-            <div class="input-group">
-              <% title_filter = @search.filter(:title) %>
-              <%= text_field_tag 'title', title_filter.value, class: 'form-control', id: 'title_value', placeholder: title_filter.name %>
-              <div class="input-group-btn">
-                <button type="submit" class="btn btn-default" id="title-filter">Search</button> 
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div>
 
       <div class="panel panel-default">
         <div class="panel-heading" role="tab" id="headingTwo">
@@ -112,7 +91,7 @@
         </div>
       </div>
     </div>
-     <div>
+    <div>
       <% year_filter = @search.filter(:article_year)%>
       <div class="slider-row">
         <div class = "slider" id="slider-range"></div>
@@ -131,13 +110,17 @@
          <button type="submit" class="btn btn-default" id="range-filter">Search</button>
         </div>
       </div>
-    </div>    
-    <div>
-      <%unless params[:search].nil? %>
-        <br><br>
-        <b><p>Hover over the periodical abbreviation or contributor name to see detailed information.</p></b>
-      <%end%>
-    </div>
+    </div>  
+      <%= form_tag nil, method: :get do %>
+        <div class="input-group">
+          <% title_filter = @search.filter(:title) %>
+          <%= text_field_tag 'title', title_filter.value, class: 'form-control', id: 'title_value', placeholder: title_filter.name %>
+          <div class="input-group-btn">
+            <button type="submit" class="btn btn-default" id="title-filter">Search</button> 
+          </div>
+        </div>
+          <p class="center">Search tips</p>
+      <% end %>
   </div>
   <div class="maincol">
     <div class="row">
@@ -172,6 +155,12 @@
         <% end %>
     <% end %>
   <br>
+    <div>
+      <%unless params[:search].nil? %>
+        <b><p class="center">Hover over the periodical abbreviation or contributor name to see detailed information.</p></b>
+      <%end%>
+    </div>
+
     <div class="panel panel-default">
       <div class="panel-body"> 
         <%if params[:search].nil? %>
