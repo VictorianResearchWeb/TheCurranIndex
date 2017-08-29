@@ -28,8 +28,9 @@ body {
 .columns {
   width: 100%;
   display: table;
+  margin: 0;
   > * {
-    padding: $gapSize;
+    padding: 0 $gapSize;
     display: table-cell;
     vertical-align: top;
   }
@@ -136,6 +137,7 @@ body {
 
 .slider-row {
   padding: 10px 0;
+  margin: 0 10px;
   .slider-min, .slider-max {
     font-weight: bold;
     padding: 5px 0;
@@ -163,5 +165,9 @@ body {
 
 #title_value {
   background-color: #eeeeee;
-  margin: 10px 0;
+  margin: 0;
+}
+
+.navbar {
+  margin: 0;
 }

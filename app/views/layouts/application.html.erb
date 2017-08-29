@@ -11,23 +11,27 @@
     <div class="header" id="header_image">
       <h1 class="center bold">The Curran Index</h1>
     </div>
+    <div class="center">
+      <nav class="navbar navbar-toggleable-md navbar-light">
+        <div class="collapse navbar-collapse">
+          <div class="navbar-nav">
+          <%= link_to "Home", root_path, class:"nav-item nav-link btn" %>
+          <a class="nav-item nav-link btn" href="#">History</a>
+          <a class="nav-item nav-link btn" href="#">Attribution Scholarship</a>
+          <a class="nav-item nav-link btn" href="#">Related Sites</a>
+          <%=link_to 'Release Notes', essays_path, class:"nav-item nav-link btn" %>
+          <a class="nav-item nav-link btn" href="#">Contributors</a>
+          <a class="nav-item nav-link btn" href="#">Advanced Search</a>
+          <%=mail_to "#{Contact.first.email}", "Contact Us", class: "nav-item nav-link btn"%>
+          </div>
+      </nav>
+    </div>
+
     <%= yield %>
   </div>
-<div class="container">    
-  <div class="center">
-    <nav class="navbar navbar-toggleable-md navbar-light">
-      <div class="collapse navbar-collapse">
-        <div class="navbar-nav">
-        <a class="nav-item nav-link btn" href="#">History</a>
-        <a class="nav-item nav-link btn" href="#">Attribution Scholarship</a>
-        <a class="nav-item nav-link btn" href="#">Related Sites</a>
-        <a class="nav-item nav-link btn" href="#">Release Notes</a>
-        <a class="nav-item nav-link btn" href="#">Contributors</a>
-        <a class="nav-item nav-link btn" href="#">Advanced Search</a>
-        <%=mail_to "#{Contact.first.email}", "Contact Us", class: "nav-item nav-link btn"%>
-        </div>
-    </nav>
-  </div>
+<div class="row">
+  <div class="nav-item">The Curran Index, &copy;2017
+  <%=mail_to "#{Contact.first.email}", "Contact Us", class: "pull-right"%></div>
 </div>
     <%= javascript_include_tag 'application'%>
     <%= yield :js %>

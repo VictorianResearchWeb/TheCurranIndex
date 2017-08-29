@@ -1,1 +1,12 @@
-index.html.erb
+<div>
+<br>
+  <h4 class="center">Release Notes</h4>
+  <br>
+</div>
+<div class="panel-group">
+  <% @essays.each do |essay| %>
+    <div class="panel panel-default panel-body">
+      <%=raw essay.contents%>
+    </div>
+  <% end %>
+</div>
