@@ -1,27 +1,36 @@
 module ArticlesHelper
 
   def selected(filter_name)
+    #determine which search filter, then return the correct descriptor and object
     filter = @search.filter(filter_name)
+    #contributors are described by first and last name
     if filter_name == :contributors
       @link = {}
       filter.selected.each do |entity|
         @entity_name = entity.first_last_name
         @link.store(@entity_name, entity)
       end
+    #periodicals are described by title
     elsif filter_name == :periodical
       @link = {}
       filter.selected.each do |entity|
         @entity_name = entity.title
         @link.store(@entity_name, entity)
       end
-
+    #article type is prose or verse
     elsif filter_name == :article_type
       @link = {}
       filter.selected.each do |entity|
         @link.store(entity, entity)
       end
-      
+    #date range is the date range
     elsif filter_name == :article_year
+      @link = {}
+      unless filter.value.nil?
+        @link.store(filter.value[0], filter.value)
+      end
+    #title search is the search word
+    elsif filter_name == :title
       @link = {}
       unless filter.value.nil?
         @link.store(filter.value[0], filter.value)
