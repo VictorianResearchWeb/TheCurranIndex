@@ -53,7 +53,7 @@ class ArticlesController < ApplicationController
     title_filter = @search.filter(:title)    
     #get the params for the title search filter, then add to previous params and redirect
     new_params = title_filter.add(title).path
-    path = test_path + new_params
+    path = root_path + new_params
     render js: "window.location = '#{path}'"
   end
 

@@ -156,10 +156,10 @@
             <% end %>
         <% end %>
     <% end %>
-  <br>
+    <br>
     <div>
       <%unless params[:search].nil? %>
-        <b><p class="center">Hover over the periodical abbreviation or contributor name to see detailed information.</p></b>
+        <i><p class="center">Hover over the periodical abbreviation or contributor name to see detailed information.</p></i>
       <%end%>
     </div>
 
@@ -178,14 +178,13 @@
             <%end%>
           </ul>
       </div>
-    </div>
       <div class="toolbar_group">
         <%= will_paginate @list%>
       </div>
       <%end%>
     </div>
   </div>
-</div>  
+</div>
 <% content_for :js do %>  
   <script type="text/javascript">
     $(function() {

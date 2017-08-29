@@ -1,16 +1,18 @@
 <div class="columns">
   <div class="sidecol">
+
     <h4 class="center"><br><b>Filter By</b><br></h4>
     <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+
       <div class="panel panel-default">
-        <div class="panel-heading" role="tab" id="headingOne">
+        <div class="panel-heading" role="tab" id="headingTwo">
           <h4 class="panel-title">
-            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
               Periodicals
             </a>
           </h4>
         </div>
-        <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+        <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
           <div class="panel-body">
             <%[:periodical].each do |filter_name|%>
               <%filter = @search.filter(filter_name)%>
@@ -32,14 +34,14 @@
         </div>
       </div>
       <div class="panel panel-default">
-        <div class="panel-heading" role="tab" id="headingTwo">
+        <div class="panel-heading" role="tab" id="headingThree">
           <h4 class="panel-title">
-            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
               Contributors
             </a>
           </h4>
         </div>
-        <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+        <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
           <div class="panel-body">
             <%[:contributors].each do |filter_name|%>
               <%filter = @search.filter(filter_name)%>
@@ -61,14 +63,14 @@
         </div>
       </div>
       <div class="panel panel-default">
-        <div class="panel-heading" role="tab" id="headingThree">
+        <div class="panel-heading" role="tab" id="headingFour">
           <h4 class="panel-title">
-            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
               Article Type
             </a>
           </h4>
         </div>
-        <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+        <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
           <div class="panel-body">
             <%[:article_type].each do |filter_name|%>
               <%filter = @search.filter(filter_name)%>
@@ -90,7 +92,7 @@
         </div>
       </div>
     </div>
-     <div>
+    <div>
       <% year_filter = @search.filter(:article_year)%>
       <div class="slider-row">
         <div class = "slider" id="slider-range"></div>
@@ -109,13 +111,18 @@
          <button type="submit" class="btn btn-default" id="range-filter">Search</button>
         </div>
       </div>
-    </div>    
-    <div>
-    <%unless params[:search].nil? %>
-      <br><br>
-      <b><p>Hover over the periodical abbreviation or contributor name for additional information.</p></b>
-      <%end%>
-    </div>
+    </div>  
+    <h4 class="center"><br><b>Search By</b><br></h4>
+      <%= form_tag nil, method: :get do %>
+        <div class="input-group">
+          <% title_filter = @search.filter(:title) %>
+          <%= text_field_tag 'title', title_filter.value, class: 'form-control', id: 'title_value', placeholder: title_filter.name %>
+          <div class="input-group-btn">
+            <button type="submit" class="btn btn-default" id="title-filter">Search</button> 
+          </div>
+        </div>
+      <% end %>
+
   </div>
   <div class="maincol">
     <div class="row">
@@ -123,7 +130,7 @@
       <div class="nav">
         <ul class="nav-pills">
           <li class="btn btn-sm btn-default"><%=link_to 'Reset All Filters', '?'%></li>
-          <%[:contributors, :periodical, :article_type, :article_year].each do |filter_name|%>
+          <%[:contributors, :periodical, :article_type, :article_year, :title].each do |filter_name|%>
             <% selected(filter_name) %>
             <% filter = @search.filter(filter_name)%>
               <%unless filter.empty?%>
@@ -149,7 +156,13 @@
             <% end %>
         <% end %>
     <% end %>
-  <br>
+    <br>
+    <div>
+      <%unless params[:search].nil? %>
+        <i><p class="center">Hover over the periodical abbreviation or contributor name to see detailed information.</p></i>
+      <%end%>
+    </div>
+
     <div class="panel panel-default">
       <div class="panel-body"> 
         <%if params[:search].nil? %>
@@ -165,14 +178,13 @@
             <%end%>
           </ul>
       </div>
-    </div>
       <div class="toolbar_group">
         <%= will_paginate @list%>
       </div>
       <%end%>
     </div>
   </div>
-</div>  
+</div>
 <% content_for :js do %>  
   <script type="text/javascript">
     $(function() {
@@ -210,6 +222,17 @@
         });
       });
     });
+      $("#title-filter").click(function(e){
+        var params = "<%=@search.params.to_query%>"
+        e.preventDefault();
+        $.ajax({
+          method: 'GET',
+          url: 'title_search',
+          data: { title_search: title_value.value,
+          search_params: params }
+        });
+      });
+
     $(function(){
       $('.popover-author').popover({
         html: true,

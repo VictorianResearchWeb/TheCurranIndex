@@ -93,11 +93,6 @@ body {
   white-space: nowrap;
   padding-left: $gapSize;
   vertical-align: middle;
-  &:first-child { padding-left: 0; }
-  &.wrap-text {
-    line-height: 1.1;
-    white-space: normal;
-  }
 }
 
 .pagination {
@@ -156,7 +151,7 @@ body {
 
 .nav {
   li {
-    margin: 0 10px;
+    margin: 10px;
    }
 }
 
@@ -171,7 +166,7 @@ body {
 }
 
 .navbar {
-  margin: 0;
+  margin: 0px;
 }
 
 .nav-bg {
@@ -179,12 +174,12 @@ body {
 }
 
 .footer {
-  left: $gapSize;
+  left: 0;
   bottom: 0;
-  width: 97%;
+  width: 100%;
   padding: $gapSize;
-  position: absolute;
-  vertical-align: top;
+  position: relative;
+  //vertical-align: top;
   display: inline-block;
   background: #fbe9d9;
   box-sizing: border-box;
@@ -203,4 +198,14 @@ body {
     padding-left: 1em;
     display: inline-block;
   }
+}
+
+.wrapper {
+  margin: 0 auto;
+  text-align: left;
+  width: 100%;
+  //max-width: $widthMax;
+  box-sizing: border-box;
+  padding: $gapSize * 1.5 $gapSize;
+  min-height:100%;
 }
