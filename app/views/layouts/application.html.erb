@@ -7,7 +7,6 @@
 </head>
   <body>
     <div class="container-fluid">
-
       <div class="header" id="header_image">
         <h1 class="center bold">The Curran Index</h1>
       </div>
@@ -28,15 +27,13 @@
         <div class="wrapper">
           <%= yield %>
         </div>
+
       <footer class="footer">
         <div class="footer_copyright">The Curran Index, &copy;2017  All Rights Reserved</div>
-        <div class="footer_nav">Implemented by<%=link_to "Brumfield Labs", "http://www.brumfieldlabs.com", target: "_blank", class: "footer_nav"%>
-        </div>
+        <%=link_to "Implemented by Brumfield Labs", "http://www.brumfieldlabs.com", target: "_blank", class: "footer_nav"%>
       </footer>
     </div>
-
     <%= javascript_include_tag 'application'%>
     <%= yield :js %>
-
   </body>
 </html>
