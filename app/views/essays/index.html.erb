@@ -1,12 +1,26 @@
-<div>
+<div class="col-sm-10 col-sm-offset-1">
 <br>
   <h4 class="center">Release Notes</h4>
   <br>
-</div>
-<div class="panel-group">
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+<!-- <div class="panel-group"> -->
   <% @essays.each do |essay| %>
-    <div class="panel panel-default panel-body">
-      <%=raw essay.contents%>
+    <%id = essay.id %>
+    <div class="panel panel-default">
+      <div class="panel-heading" role="tab" id="heading#{id}">
+      <h4 class="panel-title">
+          <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse<%#{id}%>" aria-expanded="true" aria-controls="collapse<%#{id}%>">
+            <%=essay.pub_date%>
+          </a>
+        </h4>
+      </div>
+      <div id="collapse<%#{id}%>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading<%#{id}%>">
+        <div class="panel-body">
+          <%=raw essay.contents%>
+        </div>
+      </div>
     </div>
   <% end %>
 </div>
+</div>
+
