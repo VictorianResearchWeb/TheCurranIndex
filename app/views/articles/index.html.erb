@@ -1,6 +1,5 @@
 <div class="columns">
   <div class="sidecol">
-
     <h4 class="center"><br><b>Filter By</b><br></h4>
     <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 
@@ -122,28 +121,36 @@
           </div>
         </div>
       <% end %>
-
   </div>
   <div class="maincol">
-    <div class="row">
-      <%unless params[:search].nil?%>
-      <div class="nav">
-        <ul class="nav-pills">
-          <li class="btn btn-sm btn-default"><%=link_to 'Reset All Filters', '?'%></li>
-          <%[:contributors, :periodical, :article_type, :article_year, :title].each do |filter_name|%>
-            <% selected(filter_name) %>
-            <% filter = @search.filter(filter_name)%>
-              <%unless filter.empty?%>
-                <%@link.each do |key, value|%>
-                  <li class="btn btn-sm btn-default"><%=link_to "x #{key}", filter.remove(value).path%></li>
+    <%if params[:search].nil?%>
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <p>Welcome to the Curran Index, a reference project whose mission is to identify the men and women whose stories, poems, and articles appeared anonymously in 19th-century British periodicals. The index is named after Eileen Curran, one of the original editors of the ground-breaking Wellesley Index to Victorian Periodicals. Eileen continued her dedicated life-long pursuit of attribution scholarship well into the 21st century. In 2002 Patrick Leary brought her body of work to the web through his Victorian Research Web; for the ensuing decade and a half Patrick has encouraged and supported attribution scholarship, published updates, and kept this information accessible. After Eileen’s death in 2013, he recruited a new editor to continue the project.</p>
+          <p>Now, with a thank you to Patrick, and with the generous support of the Research Society for Victorian Periodicals, this ever-growing body of data -- currently encompassing over 16,000 articles, more than 2,000 contributors, and an enhanced range of periodicals – is reintroduced in a new format, as a still freely accessible and now fully searchable database. There are many surprises and intriguing clues to be found in the Curran Index, and I invite you to enjoy and explore them to your heart's content.  I also invite you to get in touch with me with any questions or comments, and especially to let me know about your own researches into the identities of anonymous Victorian contributors to the periodical press.</p>
+          <p><%=mail_to "#{Contact.first.email}", "Gary Simons"%><br>
+          Editor, Curran Index</p>
+
+        </div>
+      </div>
+    <% else %>
+      <div class="row">
+        <div class="nav">
+          <ul class="nav-pills">
+            <li class="btn btn-sm btn-default"><%=link_to 'Reset All Filters', '?'%></li>
+            <%[:contributors, :periodical, :article_type, :article_year, :title].each do |filter_name|%>
+              <% selected(filter_name) %>
+              <% filter = @search.filter(filter_name)%>
+                <%unless filter.empty?%>
+                  <%@link.each do |key, value|%>
+                    <li class="btn btn-sm btn-default"><%=link_to "x #{key}", filter.remove(value).path%></li>
+                  <%end%>
                 <%end%>
-              <%end%>
-          <%end%>
-        </ul>
-      <%end%>
-    </div>
-    <br>
-    <%unless params[:search].nil?%>
+            <%end%>
+          </ul>
+        </div>
+      </div>
+      <br>
       <%[:contributors, :periodical, :article_type, :article_year].each do |filter_name|%>
         <% comment(filter_name) %>
           <% unless @comment.nil? %>
@@ -155,34 +162,23 @@
               </div>
             <% end %>
         <% end %>
-    <% end %>
-    <br>
-    <div>
-      <%unless params[:search].nil? %>
+      <br>
+      <div>
         <i><p class="center">Hover over the periodical abbreviation or contributor name to see detailed information.</p></i>
-      <%end%>
-    </div>
-
-    <div class="panel panel-default">
-      <div class="panel-body"> 
-        <%if params[:search].nil? %>
-          <p>Welcome to the Curran Index, a reference project whose mission is to identify the men and women whose stories, poems, and articles appeared anonymously in 19th-century British periodicals. The index is named after Eileen Curran, one of the original editors of the ground-breaking Wellesley Index to Victorian Periodicals. Eileen continued her dedicated life-long pursuit of attribution scholarship well into the 21st century. In 2002 Patrick Leary brought her body of work to the web through his Victorian Research Web; for the ensuing decade and a half Patrick has encouraged and supported attribution scholarship, published updates, and kept this information accessible. After Eileen’s death in 2013, he recruited a new editor to continue the project.</p>
-          <p>Now, with a thank you to Patrick, and with the generous support of the Research Society for Victorian Periodicals, this ever-growing body of data -- currently encompassing over 16,000 articles, more than 2,000 contributors, and an enhanced range of periodicals – is reintroduced in a new format, as a still freely accessible and now fully searchable database. There are many surprises and intriguing clues to be found in the Curran Index, and I invite you to enjoy and explore them to your heart's content.  I also invite you to get in touch with me with any questions or comments, and especially to let me know about your own researches into the identities of anonymous Victorian contributors to the periodical press.</p>
-          <p><%=mail_to "#{Contact.first.email}", "Gary Simons"%><br>
-          Editor, Curran Index</p>
-
-        <%else%>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-body">
           <ul class= "list-unstyled">
             <%@list.each do |art|%>
               <p><%= raw citation(art)%></p>
             <%end%>
           </ul>
+        </div>
       </div>
       <div class="toolbar_group">
         <%= will_paginate @list%>
       </div>
-      <%end%>
-    </div>
+    <%end%>
   </div>
 </div>
 <% content_for :js do %>  
