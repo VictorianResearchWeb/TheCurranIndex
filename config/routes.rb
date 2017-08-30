@@ -1,9 +1,16 @@
 Rails.application.routes.draw do
+
   root 'articles#index'
-  get '/contributor' => 'articles#contributor', as: :contributor
-  get '/periodical' => 'articles#periodical', as: :periodical
+
+  get 'history' => 'static_pages#history', as: :history
+  get 'sites' => 'static_pages#sites', as: :sites
+  get 'scholarship' => 'static_pages#scholarship', as: :scholarship
+
+  #needed for jquery filters
   get 'date_range' => 'articles#date_range'
   get 'title_search' => 'articles#title_search'
+
+#  get '/contributor' => 'articles#contributor', as: :contributor
 
   get '/test' => 'articles#test'
 
