@@ -3,8 +3,9 @@ class Essay < ActiveRecord::Base
 
   scope :date_order, -> { order(pub_year: :desc).order(pub_month: :desc)}
 
-  #used to display release note essays
-  def pub_date
-    "#{self.month.publication_month} #{self.pub_year}"
+  #used to display truncated release note essays
+  def short
+    "#{self.contents.truncate_words(30)} </font>"
   end
+
 end
