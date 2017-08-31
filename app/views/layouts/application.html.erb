@@ -16,10 +16,15 @@
         </div>
 
       <footer class="footer">
-        <div class="footer_copyright">The Curran Index, &copy;2017  All Rights Reserved</div>
-        <%=link_to "Implemented by Brumfield Labs", "http://www.brumfieldlabs.com", target: "_blank", class: "footer_nav"%>
-      </footer>
-    </div>
+          <div class="collapse navbar-collapse">
+            <div class="navbar-nav">
+              <span class="footer_copyright">The Curran Index, &copy;2017  All Rights Reserved</span>
+              <%=link_to "Implemented by Brumfield Labs", "http://www.brumfieldlabs.com", target: "_blank", class: "nav-item nav-link footer_nav"%>
+             </div> 
+          </div>
+       </footer>
+
+     </div>
     <%= javascript_include_tag 'application'%>
     <%= yield :js %>
   </body>
