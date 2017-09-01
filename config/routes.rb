@@ -2,17 +2,16 @@ Rails.application.routes.draw do
 
   root 'articles#index'
 
-  get 'history' => 'static_pages#history', as: :history
-  get 'sites' => 'static_pages#sites', as: :sites
-  get 'scholarship' => 'static_pages#scholarship', as: :scholarship
+  get 'history' => 'static_pages#history'
+  get 'sites' => 'static_pages#sites'
+  get 'scholarship' => 'static_pages#scholarship'
+  get 'contact' => 'static_pages#contact'
 
   #needed for jquery filters
   get 'date_range' => 'articles#date_range'
   get 'title_search' => 'articles#title_search'
 
 #  get '/contributor' => 'articles#contributor', as: :contributor
-
-  get '/test' => 'articles#test'
 
   resources :essays, only: [:index]
 

@@ -7,4 +7,8 @@ class StaticPagesController < ApplicationController
 
   def scholarship
   end
+
+  def contact
+    @contact = Contact.first
+  end
 end
