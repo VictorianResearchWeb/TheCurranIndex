@@ -20,7 +20,11 @@ class Contributor < ActiveRecord::Base
   end
 
   def first_last_name
-    self.full_name.split(",").reverse.join(" ").strip
+    name = self.full_name.split(",").reverse.join(" ").strip
+    unless self.identifier.nil?
+      name = name + " #{self.identifier}"
+    end
+    return name
   end
 
   def lifespan

@@ -56,10 +56,10 @@ module ArticlesHelper
   def citation(art)
     #some articles have multiple authors, so have to find them all and create popover
     #note: displayed by first and last name, but stored in database with last, first name
-    authors = art.contributors.map{|contributor| contributor.full_name }
+    authors = art.contributors.map{|contributor| contributor.id }
     all_contributors = []
     authors.each do |c|
-      contributor = Contributor.find_by(full_name: c)
+      contributor = Contributor.find_by(id: c)
       #no popover requried if contributor is unknown
       unless contributor.full_name == "Unknown"
         #this provides the html for the popover, redirecting to a partial with the contributor information
