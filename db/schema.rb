@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 1) do
+ActiveRecord::Schema.define(version: 20180419234556) do
 
   create_table "articles", force: :cascade do |t|
     t.integer "periodical_id",          limit: 4
@@ -84,6 +84,13 @@ ActiveRecord::Schema.define(version: 1) do
   create_table "notes", force: :cascade do |t|
     t.string "source",      limit: 255
     t.text   "information", limit: 4294967295
+  end
+
+  create_table "page_contents", force: :cascade do |t|
+    t.string   "page_key",   limit: 255
+    t.text     "html",       limit: 65535
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
   end
 
   create_table "periodicals", force: :cascade do |t|

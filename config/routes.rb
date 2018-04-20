@@ -11,6 +11,8 @@ Rails.application.routes.draw do
   get 'date_range' => 'articles#date_range'
   get 'title_search' => 'articles#title_search'
 
+  get 'static/:page_key' => 'static_pages#show'
+
 #  get '/contributor' => 'articles#contributor', as: :contributor
 
   resources :essays, only: [:index]
