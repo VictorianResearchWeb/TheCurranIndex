@@ -1,3 +1,6 @@
+<% if @contents%>
+<%= raw(@contents.html) %>
+<% else %>
 <div class="col-sm-10 col-sm-offset-1">
 
 <h4 class="center">Attribution Scholarship in the Curran Index</h4>
@@ -20,3 +23,4 @@
 <p>It should also be noted that sometimes, even when an article signature or a publisher’s record connects a name with a given article, the article may still be effectively anonymous. Outside of other information, who would know, for example, what to make of a “J. Smith” associated with a particular article? Our position is that the curtain of anonymity has not been fully pierced until some descriptive matter can be attached to a name. A great deal of effort has been made, using tools such as Frederick Boase’s Modern English Biography and digital tools such as the genealogical website FamilySearch, the British Newspaper Archive, and Worldcat, to attach some meat to the bones of otherwise unrecognized names. In essence, we regard attributions as incomplete until information such as life dates, occupation, nationality, education, or other writings can make attributions more meaningful.</p>
 <br>
 </div>
+<% end %>

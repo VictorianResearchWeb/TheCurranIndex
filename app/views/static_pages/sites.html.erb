@@ -1,3 +1,6 @@
+<% if @contents%>
+<%= raw(@contents.html) %>
+<% else %>
 <div class="col-sm-10 col-sm-offset-1">
 <h4 class="center">Other freely accessible sites on contributors to 19th Century British Periodicals</h4>
 <br>
@@ -20,3 +23,4 @@
 <p><b>The Victoria Research Web</b>, a guide to research resources for the study of 19th- century Britain, established and maintained by Patrick Leary. For 15 years this site has been the primary home of the Curran Index  <%=link_to "http://victorianresearch.org/", "http://victorianresearch.org/", target: "_blank"%></p>
 <br>
 </div>
+<% end %>
