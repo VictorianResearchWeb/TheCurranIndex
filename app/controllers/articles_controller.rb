@@ -2,6 +2,7 @@ class ArticlesController < ApplicationController
   def index
     @search = ArticleSearch.new(params)
     @list = @search.result.includes(:contributors, :periodical, :month).periodical_order.contents_order.paginate(page: params[:page], :per_page => 20)
+    @contents = PageContent.where(:page_key => 'home').first
   end
 
   def test
