@@ -17,10 +17,7 @@ class StaticPagesController < ApplicationController
     @contact = Contact.first
   end
   
-  def show
-    
-  end
-  
+ 
   def load_contents(page_key = nil)
     @contents = nil
     @page_key = page_key || params[:page_key]
