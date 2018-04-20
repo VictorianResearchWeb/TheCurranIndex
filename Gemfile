@@ -12,6 +12,9 @@ gem 'will_paginate'
 #faceted searching
 gem 'forty_facets'
 
+gem 'nokogiri', '~> 1.8.2'
+gem 'loofah', '~> 2.2.1'
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.3'
 gem 'bootstrap-sass'
