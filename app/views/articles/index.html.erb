@@ -179,6 +179,9 @@
         </div>
       </div>
       <div class="toolbar_group">
+        <span class="download">
+          <%= link_to(image_tag('Icon-xls.svg', :alt => 'Download as CSV', :class => 'download'), url_for(params.merge(:action => :download)))%>
+        </span>
         <%= will_paginate @list%>
       </div>
     <%end%>

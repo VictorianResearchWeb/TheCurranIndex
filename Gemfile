@@ -8,7 +8,7 @@ gem 'mysql2', '~> 0.3.17'
 
 #pagination
 gem 'will_paginate'
-
+gem 'csv'
 #faceted searching
 gem 'forty_facets'
 

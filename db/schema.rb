@@ -14,19 +14,19 @@
 ActiveRecord::Schema.define(version: 20180419234556) do
 
   create_table "articles", force: :cascade do |t|
-    t.integer "periodical_id",          limit: 4
-    t.integer "month_id",               limit: 4
-    t.integer "article_year",           limit: 4
+    t.integer "periodical_id",          limit: 4,                       null: false
+    t.integer "month_id",               limit: 4,                       null: false
+    t.integer "article_year",           limit: 4,                       null: false
     t.integer "page_start",             limit: 4
     t.integer "page_end",               limit: 4
     t.string  "code",                   limit: 6
-    t.string  "title",                  limit: 255
+    t.string  "title",                  limit: 255,                     null: false
     t.string  "attribution",            limit: 255
     t.string  "article_type",           limit: 10,  default: "prose"
     t.integer "volume",                 limit: 4
     t.string  "attribution_confidence", limit: 10,  default: ""
-    t.integer "issue_number",           limit: 4
-    t.string  "entry_month",            limit: 7,   default: "(08/17)"
+    t.integer "issue_number",           limit: 4,                       null: false
+    t.string  "entry_month",            limit: 7,   default: "(04/18)"
     t.integer "day",                    limit: 4
     t.string  "payment",                limit: 8
   end

@@ -6,6 +6,78 @@ class ArticlesController < ApplicationController
     @contents = page_contents ? page_contents.html : nil
   end
 
+  PERIODICAL_HEADERS = 
+  [
+    :abbreviation,
+    :title,
+    :frequency
+  ]
+  ARTICLE_HEADERS =
+  [
+    :title,
+    :article_year,
+    :month_id,
+    :day,
+    :page_start,
+    :page_end,
+    :volume,
+    :article_type,
+    :entry_month,
+    :issue_number
+  ]
+  CONTRIBUTOR_HEADERS =
+  [
+    :full_name,
+    :birth,
+    :death,
+    :gender,
+    :education,
+    :nationality,
+    :birth_year,
+    :death_year,
+    :identifier,
+    :wellesley
+  ]
+
+  def download
+    search = ArticleSearch.new(params)
+    list = search.result.includes(:contributors, :periodical, :month).periodical_order.contents_order
+
+    csv = CSV.generate(:headers => true) do |records|
+      # create headers
+      headers = PERIODICAL_HEADERS+ARTICLE_HEADERS
+      0.upto(3) { |i| headers += CONTRIBUTOR_HEADERS.map {|k| "Contributor__#{i+1}_#{k}" }}
+      records << headers.map{|k| k.to_s.titleize}
+      
+      # fill cells
+      list.each do |article|
+        record = []
+        PERIODICAL_HEADERS.each do |k|
+          record << article.periodical[k]
+        end
+        
+        ARTICLE_HEADERS.each do |k|
+          record << article[k]
+        end
+        
+        # max of four contributors
+        0.upto(3) do |i|
+          if article.contributors[i]
+            # contributor i info
+            CONTRIBUTOR_HEADERS.each do |k|
+              record << article.contributors[i][k]
+            end
+          else
+            CONTRIBUTOR_HEADERS.each { record << "" }
+          end
+        end        
+        records << record
+      end
+    end
+    
+    send_data csv, filename: "curran_search_#{Date.today}.csv"
+  end
+
   def test
     @search = ArticleSearch.new(params)
     @list = @search.result.includes(:contributors, :periodical, :month).periodical_order.contents_order.paginate(page: params[:page], :per_page => 20)

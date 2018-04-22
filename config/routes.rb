@@ -10,6 +10,8 @@ Rails.application.routes.draw do
   #needed for jquery filters
   get 'date_range' => 'articles#date_range'
   get 'title_search' => 'articles#title_search'
+  get 'download' => 'articles#download'
+
 
 #  get 'static/:page_key' => 'static_pages#show'
 
