@@ -182,7 +182,8 @@
         <span class="download">
           <%= link_to(image_tag('Icon-xls.svg', :alt => 'Download as CSV', :class => 'download'), url_for(params.merge(:action => :download)))%>
         </span>
-        <%= will_paginate @list%>
+        <%= will_paginate @list%> Results per page <%= select_tag :per_page, options_for_select([20,50,100], params[:per_page].to_i),
+       :onchange => "if(this.value){window.location='#{request.original_url}&per_page='+this.value;}" %>
       </div>
     <%end%>
   </div>
