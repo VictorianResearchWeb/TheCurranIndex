@@ -4,7 +4,7 @@ class Article < ActiveRecord::Base
   belongs_to :month
 
   scope :contents_order, -> { order(:issue_number).order(:page_start).order(:page_end)}
-  scope :periodical_order, -> { joins(:periodical).merge(Periodical.order(title: :asc)).order(volume: :asc)}
+  scope :periodical_order, -> { joins(:periodical).merge(Periodical.order(title: :asc))}
 
   #concatenate date information for display
   def date
