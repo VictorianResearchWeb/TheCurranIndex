@@ -1,0 +1,99 @@
+<div class="columns">
+  <div class="sidecol">
+    <h4 class="center"><br><b>Filter By</b><br></h4>
+    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+      <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="headingTwo">
+          <h4 class="panel-title">
+            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+              Gender
+            </a>
+          </h4>
+        </div>
+        <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+            <%[:gender].each do |filter_name|%>
+              <%filter = @search.filter(filter_name)%>
+              <div class="filter">
+                <div class="filter-values">
+                  <ul class="selectable">
+                    <%filter.facet.reject(&:selected).each do |facet_value|%>
+                      <%entity = facet_value.entity%>
+                      <li>
+                        <%display = entity %>
+                          <%=link_to display, filter.add(entity).path%>
+                        <%end%>
+                      </li>
+                  </ul>
+                </div>
+              </div>
+            <%end%>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="maincol">
+    <%if params[:search].nil?%>
+      <br><br><br>
+        <div class="panel panel-default">
+        <div class="panel-body">
+          <% if @contents %>
+          <%= raw(@contents) %>
+          <% else %>
+            <p>Welcome to the Curran Index, a reference project whose mission is to identify the men and women whose stories, poems, and articles appeared anonymously in 19th-century British periodicals. The index is named after Eileen Curran, one of the original editors of the ground-breaking Wellesley Index to Victorian Periodicals. Eileen continued her dedicated life-long pursuit of attribution scholarship well into the 21st century. In 2002 Patrick Leary brought her body of work to the web through his Victorian Research Web; for the ensuing decade and a half Patrick has encouraged and supported attribution scholarship, published updates, and kept this information accessible. After Eileen’s death in 2013, he recruited a new editor to continue the project.</p>
+            <p>Now, with a thank you to Patrick, and with the generous support of the Research Society for Victorian Periodicals, this ever-growing body of data -- currently encompassing over 16,000 articles, more than 2,000 contributors, and an enhanced range of periodicals – is reintroduced in a new format, as a still freely accessible and now fully searchable database. There are many surprises and intriguing clues to be found in the Curran Index, and I invite you to enjoy and explore them to your heart's content.  I also invite you to get in touch with me with any questions or comments, and especially to let me know about your own researches into the identities of anonymous Victorian contributors to the periodical press.</p>
+            <p><%=mail_to "#{Contact.first.email}", "Gary Simons"%><br>
+            Editor, Curran Index</p>
+          <% end %>  
+        </div>
+      </div>
+      <% else %>
+            <div class="row">
+        <div class="nav">
+          <ul class="nav-pills">
+            <li class="btn btn-sm btn-default"><%=link_to 'Reset All Filters', '?'%></li>
+            <%[:gender].each do |filter_name|%>
+              <% selected(filter_name) %>
+              <% filter = @search.filter(filter_name)%>
+                <%unless filter.empty?%>
+                  <%@link.each do |key, value|%>
+                    <li class="btn btn-sm btn-default"><%=link_to "x #{key}", filter.remove(value).path%></li>
+                  <%end%>
+                <%end%>
+            <%end%>
+          </ul>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <ul class= "list-unstyled">
+            <%@list.each do |contributor|%>
+                <% unless contributor.full_name == "Unknown" %>
+            <p>
+              <b><%=contributor.full_name%></b>
+              <%unless contributor.lifespan.nil?%>
+                <%=contributor.lifespan%>
+              <% end %>
+
+              <%unless contributor.gender.nil?%>
+                <br><%=contributor.gender%>
+              <%end%>
+              <%unless contributor.nationality.nil?%>
+                <%=contributor.nationality%>
+              <%end%>
+              <%unless contributor.education.nil?%>
+                <%=contributor.education%>
+              <%end%>
+              </p>
+              <%unless contributor.comment.nil?%>
+                <p><%=raw contributor.comment%></p>
+              <%end%>
+              <%end%>
+            <%end%>
+          </ul>
+        </div>    
+      <% end %>
+    </div>
+  </div>
+</div>

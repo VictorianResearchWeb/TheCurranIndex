@@ -3,6 +3,14 @@ module ContributorsHelper
   def selected(filter_name)
     #determine which search filter, then return the correct descriptor and object
     filter = @search.filter(filter_name)
+    if filter_name == :gender
+      @link = {}
+      filter.selected.each do |entity|
+        @entity_name = entity
+        @link.store(@entity_name, entity)
+      end   
+    end
+
     #contributors are described by first and last name
     if filter_name == :contributors
       @link = {}

@@ -1,9 +1,10 @@
 class ContributorsController < ApplicationController
   def index
-    #@search = ContributorSearch.new(params)
+    #binding.pry
     @per_page = params[:per_page] || 20
-    @list = Contributor.all.order(:full_name).paginate(page: params[:page], :per_page => @per_page)
-    # @list = @search.result.includes(:contributors, :periodical, :month).periodical_order.contents_order.paginate(page: params[:page], :per_page => @per_page)
+    @search = ContributorSearch.new(params)
+    @list = @search.result.order(:full_name).paginate(page: params[:page], :per_page => @per_page)
+    #@list = @search.result.includes(:contributors, :periodical, :month).periodical_order.contents_order.paginate(page: params[:page], :per_page => @per_page)
     page_contents = PageContent.where(:page_key => 'home').first
     @contents = page_contents ? page_contents.html : nil
   end
