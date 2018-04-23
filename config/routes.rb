@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
   root 'articles#index'
+  get 'contributors' => 'contributors#index'
 
   get 'history' => 'static_pages#history'
   get 'sites' => 'static_pages#sites'
