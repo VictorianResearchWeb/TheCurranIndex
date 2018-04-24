@@ -5,14 +5,44 @@
       <div class="panel panel-default">
         <div class="panel-heading" role="tab" id="headingTwo">
           <h4 class="panel-title">
-            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
               Gender
+            </a>
+          </h4>
+        </div>
+        <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            <%[:gender].each do |filter_name|%>
+              <%filter = @search.filter(filter_name)%>
+              <div class="filter">
+                <div class="filter-values">
+                  <ul class="selectable">
+                    <%filter.facet.reject(&:selected).each do |facet_value|%>
+                      <%entity = facet_value.entity%>
+                      <li>
+                        <%display = entity %>
+                          <%=link_to display, filter.add(entity).path%>
+                        <%end%>
+                      </li>
+                  </ul>
+                </div>
+              </div>
+            <%end%>
+          </div>
+        </div>
+      </div>
+
+        <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="headingTwo">
+          <h4 class="panel-title">
+            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+              Nationality
             </a>
           </h4>
         </div>
         <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
           <div class="panel-body">
-            <%[:gender].each do |filter_name|%>
+            <%[:nationality].each do |filter_name|%>
               <%filter = @search.filter(filter_name)%>
               <div class="filter">
                 <div class="filter-values">
@@ -53,7 +83,7 @@
         <div class="nav">
           <ul class="nav-pills">
             <li class="btn btn-sm btn-default"><%=link_to 'Reset All Filters', '?'%></li>
-            <%[:gender].each do |filter_name|%>
+            <%[:gender,:nationality].each do |filter_name|%>
               <% selected(filter_name) %>
               <% filter = @search.filter(filter_name)%>
                 <%unless filter.empty?%>

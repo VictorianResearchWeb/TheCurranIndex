@@ -9,6 +9,12 @@ module ContributorsHelper
         @entity_name = entity
         @link.store(@entity_name, entity)
       end   
+    elsif filter_name == :nationality
+      @link = {}
+      filter.selected.each do |entity|
+        @entity_name = entity
+        @link.store(@entity_name, entity)
+      end   
     end
 
     #contributors are described by first and last name

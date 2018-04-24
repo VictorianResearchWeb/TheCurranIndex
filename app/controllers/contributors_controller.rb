@@ -1,6 +1,5 @@
 class ContributorsController < ApplicationController
   def index
-    #binding.pry
     @per_page = params[:per_page] || 20
     @search = ContributorSearch.new(params)
     @list = @search.result.order(:full_name).paginate(page: params[:page], :per_page => @per_page)
