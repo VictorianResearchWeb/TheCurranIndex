@@ -15,6 +15,12 @@ module ContributorsHelper
         @entity_name = entity
         @link.store(@entity_name, entity)
       end   
+    #article type is prose or verse
+    elsif filter_name == [:articles, :article_type]
+      @link = {}
+      filter.selected.each do |entity|
+        @link.store(entity, entity)
+      end
     end
 
     #contributors are described by first and last name

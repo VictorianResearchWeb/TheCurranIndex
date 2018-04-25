@@ -6,7 +6,8 @@ class ContributorSearch < FortyFacets::FacetSearch
   #facet :contributor, name: 'Contributor', order: :full_name
   facet :gender, name: 'Gender'
   facet :nationality, name: 'Nationality'
-  #facet :article_type, name: 'Article Type'
+  #facet :articles, name: 'Articles'
+  facet [:articles, :article_type], name: 'Article Type'
 
   #text :title, name: 'Search by Title'
 
