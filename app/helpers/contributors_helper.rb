@@ -21,6 +21,11 @@ module ContributorsHelper
       filter.selected.each do |entity|
         @link.store(entity, entity)
       end
+    elsif filter_name == :full_name
+      @link = {}
+      unless filter.value.nil?
+        @link.store(filter.value[0], filter.value)
+      end
     end
 
     #contributors are described by first and last name

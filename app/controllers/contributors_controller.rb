@@ -1,9 +1,14 @@
 class ContributorsController < ApplicationController
   def index
     @per_page = params[:per_page] || 20
-    @search = ContributorSearch.new(params)
-    @list = @search.result.order(:full_name).paginate(page: params[:page], :per_page => @per_page)
+    # if no params, then show all contributors
+    #if true 
+      #@list = Contributor.all.order(:full_name).paginate(page: params[:page], :per_page => @per_page)
+    #else 
+      @search = ContributorSearch.new(params)
+      @list = @search.result.order(:full_name).paginate(page: params[:page], :per_page => @per_page)
     #@list = @search.result.includes(:contributors, :periodical, :month).periodical_order.contents_order.paginate(page: params[:page], :per_page => @per_page)
+    #end
     page_contents = PageContent.where(:page_key => 'home').first
     @contents = page_contents ? page_contents.html : nil
   end
@@ -103,7 +108,26 @@ class ContributorsController < ApplicationController
     render js: "window.location = '#{path}'"
   end
 
+  def full_name_search
+    #get fullname search and previous params
+    fullname = params["full_name_search"]
+    string = Rack::Utils.parse_nested_query(params["search_params"])
+    #remove previous fullname search - only capable of one search at a time
+    if string.key?("fullname")
+      string.delete("fullname")
+    end
+    search_params = { "search" => string}
+    #create a new search to get the fullname search filter
+    @search = ContributorSearch.new(search_params)
+    fullname_filter = @search.filter(:full_name)    
+    #get the params for the fullname search filter, then add to previous params and redirect
+    new_params = fullname_filter.add(fullname).path
+    path = contributors_path + new_params
+    render js: "window.location = '#{path}'"
+  end
+
   def title_search
+    binding.pry
     #get title search and previous params
     title = params["title_search"]
     string = Rack::Utils.parse_nested_query(params["search_params"])

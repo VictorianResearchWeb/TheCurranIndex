@@ -9,6 +9,6 @@ class ContributorSearch < FortyFacets::FacetSearch
   #facet :articles, name: 'Articles'
   facet [:articles, :article_type], name: 'Article Type'
 
-  #text :title, name: 'Search by Title'
+  text :full_name, name: 'Name Search'
 
 end
