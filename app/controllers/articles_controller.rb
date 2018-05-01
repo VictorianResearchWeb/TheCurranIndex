@@ -10,7 +10,7 @@ class ArticlesController < ApplicationController
   def advanced_search
     @search = AdvancedSearch.new(params)
     @per_page = params[:per_page] || 20
-    @list = @search.result.includes(:contributors, :periodical, :month).periodical_order.contents_order.paginate(page: params[:page], :per_page => @per_page)
+    @list = @search.result.includes(:contributors, :periodical, :month)
     page_contents = PageContent.where(:page_key => 'home').first
     @contents = page_contents ? page_contents.html : nil
     
@@ -18,7 +18,7 @@ class ArticlesController < ApplicationController
     @list.each do |article|
       type_entry = by_type[article.article_type] || {:count => 0, :page_sum => 0}
       type_entry[:count] += 1
-      type_entry[:page_sum] += article.page_end - article.page_start + 1  
+      type_entry[:page_sum] += article.page_end - article.page_start + 1  if article.page_end && article.page_start
       by_type[article.article_type] = type_entry
     end
     
