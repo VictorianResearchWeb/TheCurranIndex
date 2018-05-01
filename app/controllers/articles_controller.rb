@@ -13,6 +13,16 @@ class ArticlesController < ApplicationController
     @list = @search.result.includes(:contributors, :periodical, :month).periodical_order.contents_order.paginate(page: params[:page], :per_page => @per_page)
     page_contents = PageContent.where(:page_key => 'home').first
     @contents = page_contents ? page_contents.html : nil
+    
+    by_type={}
+    @list.each do |article|
+      type_entry = by_type[article.article_type] || {:count => 0, :page_sum => 0}
+      type_entry[:count] += 1
+      type_entry[:page_sum] += article.page_end - article.page_start + 1  
+      by_type[article.article_type] = type_entry
+    end
+    
+    @aggregation = by_type
   end
 
   PERIODICAL_HEADERS = 

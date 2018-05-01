@@ -218,11 +218,36 @@
       </div>
       <div class="panel panel-default">
         <div class="panel-body">
-          <ul class= "list-unstyled">
-            <%@list.each do |art|%>
-              <p><%= raw citation(art)%></p>
-            <%end%>
-          </ul>
+          <table class="tab">
+            <thead>
+              <tr>
+                <th class="left">
+                  Article Type
+                </th>
+                <th class="tab left">
+                  Total Articles
+                </th>
+                <th class="tab left">
+                  Total Pages
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @aggregation.each_pair do |article_type, by_type| %>
+                <tr>
+                  <td>
+                    <%= article_type.to_s.titleize%>
+                  </td>
+                  <td class="right">
+                    <%= by_type[:count] %>
+                  </td>
+                  <td class="right">
+                    <%= by_type[:page_sum]%>
+                  </td>                    
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
         </div>
       </div>
       <div class="toolbar_group">
