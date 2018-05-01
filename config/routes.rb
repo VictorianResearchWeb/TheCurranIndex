@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
 
   root 'articles#index'
+  get 'contributors' => 'contributors#index'
+  get 'advanced_search' => 'articles#advanced_search'
 
   get 'history' => 'static_pages#history'
   get 'sites' => 'static_pages#sites'
@@ -11,6 +13,7 @@ Rails.application.routes.draw do
   get 'date_range' => 'articles#date_range'
   get 'title_search' => 'articles#title_search'
   get 'download' => 'articles#download'
+  get 'full_name_search' => 'contributors#full_name_search'
 
 
 #  get 'static/:page_key' => 'static_pages#show'
