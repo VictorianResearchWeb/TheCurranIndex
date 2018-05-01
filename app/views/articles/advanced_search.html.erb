@@ -1,0 +1,302 @@
+<div class="columns">
+  <div class="sidecol">
+    <h4 class="center"><br><b>Filter By</b><br></h4>
+    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+      <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="headingOne">
+          <h4 class="panel-title">
+            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+              Periodicals
+            </a>
+          </h4>
+        </div>
+        <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            <%[:periodical].each do |filter_name|%>
+              <%filter = @search.filter(filter_name)%>
+              <div class="filter">
+                <div class="filter-values">
+                  <ul class="selectable">
+                    <%filter.facet.reject(&:selected).each do |facet_value|%>
+                      <%entity = facet_value.entity%>
+                      <li>
+                        <%display = entity.title %>
+                          <%=link_to display, filter.add(entity).path%>
+                        <%end%>
+                      </li>
+                  </ul>
+                </div>
+              </div>
+            <%end%>
+          </div>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="headingTwo">
+          <h4 class="panel-title">
+            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+              Contributors
+            </a>
+          </h4>
+        </div>
+        <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+            <%[:contributors].each do |filter_name|%>
+              <%filter = @search.filter(filter_name)%>
+              <div class="filter">
+                <div class="filter-values">
+                  <ul class="selectable">
+                    <%filter.facet.reject(&:selected).each do |facet_value|%>
+                      <%entity = facet_value.entity%>
+                      <li>
+                        <%display = "#{entity.full_name} #{entity.identifier}"%>
+                          <%=link_to display, filter.add(entity).path%>
+                        <%end%>
+                      </li>
+                  </ul>
+                </div>
+              </div>
+            <%end%>
+          </div>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="headingThree">
+          <h4 class="panel-title">
+            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+              Article Type
+            </a>
+          </h4>
+        </div>
+        <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+          <div class="panel-body">
+            <%[:article_type].each do |filter_name|%>
+              <%filter = @search.filter(filter_name)%>
+              <div class="filter">
+                <div class="filter-values">
+                  <ul class="selectable">
+                    <%filter.facet.reject(&:selected).each do |facet_value|%>
+                      <%entity = facet_value.entity%>
+                      <li>
+                        <%display = entity %>
+                          <%=link_to display, filter.add(entity).path%>
+                        <%end%>
+                      </li>
+                  </ul>
+                </div>
+              </div>
+            <%end%>
+         </div>
+        </div>
+      </div>
+    <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="headingFour">
+          <h4 class="panel-title">
+            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+              Gender
+            </a>
+          </h4>
+        </div>
+        <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
+          <div class="panel-body">
+            <%[[:contributors, :gender]].each do |filter_name|%>
+              <%filter = @search.filter(filter_name)%>
+              <div class="filter">
+                <div class="filter-values">
+                  <ul class="selectable">
+                    <%filter.facet.reject(&:selected).each do |facet_value|%>
+                      <%entity = facet_value.entity%>
+                      <li>
+                        <%display = entity %>
+                          <%=link_to display, filter.add(entity).path%>
+                        <%end%>
+                      </li>
+                  </ul>
+                </div>
+              </div>
+            <%end%>
+         </div>
+        </div>
+      </div>
+    <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="headingFive">
+          <h4 class="panel-title">
+            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+              Nationality
+            </a>
+          </h4>
+        </div>
+        <div id="collapseFive" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFive">
+          <div class="panel-body">
+            <%[[:contributors, :nationality]].each do |filter_name|%>
+              <%filter = @search.filter(filter_name)%>
+              <div class="filter">
+                <div class="filter-values">
+                  <ul class="selectable">
+                    <%filter.facet.reject(&:selected).each do |facet_value|%>
+                      <%entity = facet_value.entity%>
+                      <li>
+                        <%display = entity %>
+                          <%=link_to display, filter.add(entity).path%>
+                        <%end%>
+                      </li>
+                  </ul>
+                </div>
+              </div>
+            <%end%>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <h4 class="center"><br><b>Publication Year Search</b><br></h4>
+      <% year_filter = @search.filter(:article_year)%>
+      <div class="slider-row">
+        <div class = "slider" id="slider-range"></div>
+        <div class="slider-min">
+          <%=year_filter.absolute_min%>
+        </div>
+        <div class="slider-max">
+          <%=year_filter.absolute_max%>
+        </div>
+      </div>
+      <br>
+      <div class="input-group">
+        <%=text_field_tag "disabled", year_filter.value, class: "form-control", id: "year-range-display", disabled: true, placeholder: "Year"%>
+        <%= hidden_field_tag 'date_range', year_filter.value, class: "form-control", id: "year-range", data: { "absolute-min" => year_filter.absolute_min, "absolute-max" => year_filter.absolute_max }%>
+        <div class="input-group-btn">
+         <button type="submit" class="btn btn-default" id="range-filter">Search</button>
+        </div>
+      </div>
+    </div>  
+    <h4 class="center"><br><b>Title Search</b><br></h4>
+      <%= form_tag nil, method: :get do %>
+        <div class="input-group">
+          <% title_filter = @search.filter(:title) %>
+          <%= text_field_tag 'title', title_filter.value, class: 'form-control', id: 'title_value', placeholder: 'Search Article Titles' %>
+          <div class="input-group-btn">
+            <button type="submit" class="btn btn-default" id="title-filter">Search</button> 
+          </div>
+        </div>
+      <% end %>
+  </div>
+  <div class="maincol">
+    <%if params[:search].nil?%>
+      <br><br><br>
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <% if @contents %>
+          <%= raw(@contents) %>
+          <% else %>
+            <p>Welcome to the Curran Index, a reference project whose mission is to identify the men and women whose stories, poems, and articles appeared anonymously in 19th-century British periodicals. The index is named after Eileen Curran, one of the original editors of the ground-breaking Wellesley Index to Victorian Periodicals. Eileen continued her dedicated life-long pursuit of attribution scholarship well into the 21st century. In 2002 Patrick Leary brought her body of work to the web through his Victorian Research Web; for the ensuing decade and a half Patrick has encouraged and supported attribution scholarship, published updates, and kept this information accessible. After Eileen’s death in 2013, he recruited a new editor to continue the project.</p>
+            <p>Now, with a thank you to Patrick, and with the generous support of the Research Society for Victorian Periodicals, this ever-growing body of data -- currently encompassing over 16,000 articles, more than 2,000 contributors, and an enhanced range of periodicals – is reintroduced in a new format, as a still freely accessible and now fully searchable database. There are many surprises and intriguing clues to be found in the Curran Index, and I invite you to enjoy and explore them to your heart's content.  I also invite you to get in touch with me with any questions or comments, and especially to let me know about your own researches into the identities of anonymous Victorian contributors to the periodical press.</p>
+            <p><%=mail_to "#{Contact.first.email}", "Gary Simons"%><br>
+            Editor, Curran Index</p>
+          <% end %>  
+        </div>
+      </div>
+    <% else %>
+      <div class="row">
+        <div class="nav">
+          <ul class="nav-pills">
+            <li class="btn btn-sm btn-default"><%=link_to 'Reset All Filters', '?'%></li>
+            <%[:contributors, :periodical, :article_type, :article_year, :title, [:contributors, :gender], [:contributors, :nationality]].each do |filter_name|%>
+              <% selected(filter_name) %>
+              <% filter = @search.filter(filter_name)%>
+                <%unless filter.empty?%>
+                  <%@link.each do |key, value|%>
+                    <li class="btn btn-sm btn-default"><%=link_to "x #{key}", filter.remove(value).path%></li>
+                  <%end%>
+                <%end%>
+            <%end%>
+          </ul>
+        </div>
+      </div>
+      <br>
+      <div>
+        <i><p class="center">Hover over the periodical abbreviation or contributor name to see detailed information.</p></i>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <ul class= "list-unstyled">
+            <%@list.each do |art|%>
+              <p><%= raw citation(art)%></p>
+            <%end%>
+          </ul>
+        </div>
+      </div>
+      <div class="toolbar_group">
+        <span class="download">
+          <%= link_to(image_tag('Icon-xls.svg', :alt => 'Download as CSV', :class => 'download'), url_for(params.merge(:action => :download)))%>
+        </span>
+        <%= will_paginate @list%> Results per page <%= select_tag :per_page, options_for_select([20,50,100], params[:per_page].to_i),
+       :onchange => "if(this.value){window.location='#{request.original_url}&per_page='+this.value;}" %>
+      </div>
+    <%end%>
+  </div>
+</div>
+<% content_for :js do %>  
+  <script type="text/javascript">
+    $(function() {
+      var current = $('#year-range').val();
+      var abs_min = parseFloat($('#year-range').attr('data-absolute-min'));
+      var abs_max = parseFloat($('#year-range').attr('data-absolute-max'));
+
+      var current_min = abs_min;
+      var current_max = abs_max;
+
+      if (current != '') {
+        var splits = current.split(' - ');
+        current_min = parseFloat(splits[0]);
+        current_max = parseFloat(splits[1]);
+      }
+      $( "#slider-range" ).slider({
+        range: true,
+        min: abs_min,
+        max:  abs_max,
+        values: [ current_min, current_max ],
+        slide: function( event, ui ) {
+          $( "#year-range" ).val( ui.values[ 0 ] + " - " + ui.values[ 1 ] );
+          $( "#year-range-display" ).val( ui.values[ 0 ] + " - " + ui.values[ 1 ] );
+        }
+      });
+        var date_range = $("#year-range-display");
+        var params = "<%=@search.params.to_query%>"
+      $("#range-filter").click(function(e){
+        e.preventDefault();
+        $.ajax({
+          method: 'GET',
+          url: 'date_range',
+          data: { date_range: date_range[0].value,
+          search_params: params }
+        });
+      });
+    });
+      $("#title-filter").click(function(e){
+        var params = "<%=@search.params.to_query%>"
+        e.preventDefault();
+        $.ajax({
+          method: 'GET',
+          url: 'title_search',
+          data: { title_search: title_value.value,
+          search_params: params }
+        });
+      });
+
+    $(function(){
+      $('.popover-author').popover({
+        html: true,
+        placement: 'bottom',
+        trigger: 'hover focus'
+      });
+    });
+    $(function(){
+      $('.popover-periodical').popover({
+        html: true,
+        placement: 'bottom',
+        trigger: 'hover focus'
+      });
+    });
+
+  </script>
+<%end%>

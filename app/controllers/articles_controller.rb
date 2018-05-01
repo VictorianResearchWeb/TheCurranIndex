@@ -7,6 +7,14 @@ class ArticlesController < ApplicationController
     @contents = page_contents ? page_contents.html : nil
   end
 
+  def advanced_search
+    @search = AdvancedSearch.new(params)
+    @per_page = params[:per_page] || 20
+    @list = @search.result.includes(:contributors, :periodical, :month).periodical_order.contents_order.paginate(page: params[:page], :per_page => @per_page)
+    page_contents = PageContent.where(:page_key => 'home').first
+    @contents = page_contents ? page_contents.html : nil
+  end
+
   PERIODICAL_HEADERS = 
   [
     :abbreviation,
@@ -104,6 +112,7 @@ class ArticlesController < ApplicationController
 
   def title_search
     #get title search and previous params
+    binding.pry
     title = params["title_search"]
     string = Rack::Utils.parse_nested_query(params["search_params"])
     #remove previous title search - only capable of one search at a time
