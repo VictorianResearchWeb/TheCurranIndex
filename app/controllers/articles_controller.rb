@@ -7,6 +7,19 @@ class ArticlesController < ApplicationController
     @contents = page_contents ? page_contents.html : nil
   end
 
+  def advanced_search
+    @search = AdvancedSearch.new(params)
+    @per_page = params[:per_page] || 20
+    @list = @search.result.includes(:contributors, :periodical, :month)
+    page_contents = PageContent.where(:page_key => 'home').first
+    @contents = page_contents ? page_contents.html : nil
+    @group_by_attribute=params[:aggregate_by]||'article_type'
+        
+    raw_aggregation = @search.aggregate(@list, @group_by_attribute)
+    @aggregation = {}
+    raw_aggregation.keys.map{|k| k.nil? ? '' : k}.sort.each {|key| @aggregation[key] = raw_aggregation[key] if raw_aggregation[key] }
+  end
+
   PERIODICAL_HEADERS = 
   [
     :abbreviation,
@@ -102,6 +115,24 @@ class ArticlesController < ApplicationController
     render js: "window.location = '#{path}'"
   end
 
+  def advanced_date_range
+    #get date and previous search params
+    date_range = params["advanced_date_range"]
+    string = Rack::Utils.parse_nested_query(params["search_params"])
+    #remove previous date range - can only search one at a time
+    if string.key?("article_year")
+      string.delete("article_year")
+    end
+    search_params = { "search" => string}
+    #create a new search to get the article_year filter
+    @search = ArticleSearch.new(search_params)
+    year_filter = @search.filter(:article_year)
+    #get the params for the article year filter, then add to previous params and redirect
+    new_params = year_filter.add(date_range).path
+    path = advanced_search_path + new_params
+    render js: "window.location = '#{path}'"
+  end
+
   def title_search
     #get title search and previous params
     title = params["title_search"]
@@ -117,6 +148,24 @@ class ArticlesController < ApplicationController
     #get the params for the title search filter, then add to previous params and redirect
     new_params = title_filter.add(title).path
     path = root_path + new_params
+    render js: "window.location = '#{path}'"
+  end
+
+  def advanced_title_search
+    #get title search and previous params
+    title = params["advanced_title_search"]
+    string = Rack::Utils.parse_nested_query(params["search_params"])
+    #remove previous title search - only capable of one search at a time
+    if string.key?("title")
+      string.delete("title")
+    end
+    search_params = { "search" => string}
+    #create a new search to get the title search filter
+    @search = ArticleSearch.new(search_params)
+    title_filter = @search.filter(:title)    
+    #get the params for the title search filter, then add to previous params and redirect
+    new_params = title_filter.add(title).path
+    path = advanced_search_path + new_params
     render js: "window.location = '#{path}'"
   end
 
