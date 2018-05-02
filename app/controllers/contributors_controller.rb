@@ -9,7 +9,7 @@ class ContributorsController < ApplicationController
       @list = @search.result.order(:full_name).paginate(page: params[:page], :per_page => @per_page)
     #@list = @search.result.includes(:contributors, :periodical, :month).periodical_order.contents_order.paginate(page: params[:page], :per_page => @per_page)
     #end
-    page_contents = PageContent.where(:page_key => 'home').first
+    page_contents = PageContent.where(:page_key => 'contributors').first
     @contents = page_contents ? page_contents.html : nil
   end
 

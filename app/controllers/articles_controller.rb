@@ -11,7 +11,7 @@ class ArticlesController < ApplicationController
     @search = AdvancedSearch.new(params)
     @per_page = params[:per_page] || 20
     @list = @search.result.includes(:contributors, :periodical, :month)
-    page_contents = PageContent.where(:page_key => 'home').first
+    page_contents = PageContent.where(:page_key => 'advanced').first
     @contents = page_contents ? page_contents.html : nil
     @group_by_attribute=params[:aggregate_by]||'article_type'
         
