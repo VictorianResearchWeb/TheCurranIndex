@@ -13,16 +13,9 @@ class ArticlesController < ApplicationController
     @list = @search.result.includes(:contributors, :periodical, :month)
     page_contents = PageContent.where(:page_key => 'home').first
     @contents = page_contents ? page_contents.html : nil
-    
-    by_type={}
-    @list.each do |article|
-      type_entry = by_type[article.article_type] || {:count => 0, :page_sum => 0}
-      type_entry[:count] += 1
-      type_entry[:page_sum] += article.page_end - article.page_start + 1  if article.page_end && article.page_start
-      by_type[article.article_type] = type_entry
-    end
-    
-    @aggregation = by_type
+    @group_by_attribute=params[:aggregate_by]||'article_type'
+        
+    @aggregation = @search.aggregate(@list, @group_by_attribute)
   end
 
   PERIODICAL_HEADERS = 
@@ -122,7 +115,6 @@ class ArticlesController < ApplicationController
 
   def title_search
     #get title search and previous params
-    binding.pry
     title = params["title_search"]
     string = Rack::Utils.parse_nested_query(params["search_params"])
     #remove previous title search - only capable of one search at a time
