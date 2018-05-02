@@ -11,6 +11,7 @@ Rails.application.routes.draw do
 
   #needed for jquery filters
   get 'date_range' => 'articles#date_range'
+  get 'advanced_date_range' => 'articles#advanced_date_range'
   get 'title_search' => 'articles#title_search'
   get 'advanced_title_search' => 'articles#advanced_title_search'
   get 'aggregation_change' => 'articles#aggregation_change'

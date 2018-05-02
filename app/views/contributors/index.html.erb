@@ -115,9 +115,8 @@
             Editor, Curran Index</p>
           <% end %>  
         </div>
-      </div>
       <% else %>
-            <div class="row">
+      <div class="row">
         <div class="nav">
           <ul class="nav-pills">
             <li class="btn btn-sm btn-default"><%=link_to 'Reset All Filters', '?'%></li>
@@ -140,30 +139,35 @@
                 <% unless contributor.full_name == "Unknown" %>
             <p>
               <b><%=contributor.full_name%></b>
+              <%unless contributor.gender.nil?%>
+                (<%=contributor.gender%>)
+              <%end%>
               <%unless contributor.lifespan.nil?%>
                 <%=contributor.lifespan%>
               <% end %>
-
-              <%unless contributor.gender.nil?%>
-                <br><%=contributor.gender%>
-              <%end%>
               <%unless contributor.nationality.nil?%>
                 <%=contributor.nationality%>
               <%end%>
               <%unless contributor.education.nil?%>
                 <%=contributor.education%>
               <%end%>
-              </p>
               <%unless contributor.comment.nil?%>
-                <p><%=raw contributor.comment%></p>
+                <%=raw contributor.comment%>
               <%end%>
+            </p>
               <%end%>
             <%end%>
           </ul>
-        </div>    
+        </div>
+        <div class="toolbar_group">
+        <span class="download">
+          <%= link_to(image_tag('Icon-xls.svg', :alt => 'Download as CSV', :class => 'download'), url_for(params.merge(:action => :download)))%>
+        </span>
+        <%= will_paginate @list%> Results per page <%= select_tag :per_page, options_for_select([20,50,100], params[:per_page].to_i),
+       :onchange => "if(this.value){window.location='#{request.original_url}&per_page='+this.value;}" %>
+      </div>    
       <% end %>
     </div>
-  </div>
 </div>
 <% content_for :js do %>  
   <script type="text/javascript">

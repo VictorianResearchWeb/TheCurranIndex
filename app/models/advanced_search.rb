@@ -16,7 +16,7 @@ class AdvancedSearch < FortyFacets::FacetSearch
     :article_year => [:article_year],
     :periodical => [:periodical, :title],
     :contributor_nationality => [:contributors, :first, :nationality],
-    :article_year => [:article_year]
+    :contributor_gender => [:contributors, :first, :gender]
   }
 
   def aggregation_options
