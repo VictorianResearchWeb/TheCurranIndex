@@ -179,6 +179,12 @@
           </div>
         </div>
       <% end %>
+    <h4 class="center"><br><b>Aggregate By</b><br></h4>
+    <div class="input-group">
+      <% @search.aggregation_options.each do |option| %>
+        <%= link_to option.first, "#{request.original_url.gsub(/&aggregate_by=.*/,'')}&aggregate_by=#{option.last}" %><br/>
+      <% end %>
+    </div>
   </div>
   <div class="maincol">
     <%if params[:search].nil?%>
@@ -219,7 +225,7 @@
             <thead>
               <tr>
                 <th class="left">
-                  Article Type
+                  <%= @group_by_attribute.titleize%>
                 </th>
                 <th class="tab left">
                   Total Articles

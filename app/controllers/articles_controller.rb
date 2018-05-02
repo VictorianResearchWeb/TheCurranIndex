@@ -13,16 +13,11 @@ class ArticlesController < ApplicationController
     @list = @search.result.includes(:contributors, :periodical, :month)
     page_contents = PageContent.where(:page_key => 'home').first
     @contents = page_contents ? page_contents.html : nil
-    
-    by_type={}
-    @list.each do |article|
-      type_entry = by_type[article.article_type] || {:count => 0, :page_sum => 0}
-      type_entry[:count] += 1
-      type_entry[:page_sum] += article.page_end - article.page_start + 1  if article.page_end && article.page_start
-      by_type[article.article_type] = type_entry
-    end
-    
-    @aggregation = by_type
+    @group_by_attribute=params[:aggregate_by]||'article_type'
+        
+    raw_aggregation = @search.aggregate(@list, @group_by_attribute)
+    @aggregation = {}
+    raw_aggregation.keys.map{|k| k.nil? ? '' : k}.sort.each {|key| @aggregation[key] = raw_aggregation[key] if raw_aggregation[key] }
   end
 
   PERIODICAL_HEADERS = 
