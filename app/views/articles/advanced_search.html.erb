@@ -213,9 +213,6 @@
         </div>
       </div>
       <br>
-      <div>
-        <i><p class="center">Hover over the periodical abbreviation or contributor name to see detailed information.</p></i>
-      </div>
       <div class="panel panel-default">
         <div class="panel-body">
           <table class="tab">
@@ -300,8 +297,8 @@
         e.preventDefault();
         $.ajax({
           method: 'GET',
-          url: 'title_search',
-          data: { title_search: title_value.value,
+          url: 'advanced_title_search',
+          data: { advanced_title_search: title_value.value,
           search_params: params }
         });
       });

@@ -122,7 +122,6 @@ class ArticlesController < ApplicationController
 
   def title_search
     #get title search and previous params
-    binding.pry
     title = params["title_search"]
     string = Rack::Utils.parse_nested_query(params["search_params"])
     #remove previous title search - only capable of one search at a time
@@ -136,6 +135,24 @@ class ArticlesController < ApplicationController
     #get the params for the title search filter, then add to previous params and redirect
     new_params = title_filter.add(title).path
     path = root_path + new_params
+    render js: "window.location = '#{path}'"
+  end
+
+  def advanced_title_search
+    #get title search and previous params
+    title = params["advanced_title_search"]
+    string = Rack::Utils.parse_nested_query(params["search_params"])
+    #remove previous title search - only capable of one search at a time
+    if string.key?("title")
+      string.delete("title")
+    end
+    search_params = { "search" => string}
+    #create a new search to get the title search filter
+    @search = ArticleSearch.new(search_params)
+    title_filter = @search.filter(:title)    
+    #get the params for the title search filter, then add to previous params and redirect
+    new_params = title_filter.add(title).path
+    path = advanced_search_path + new_params
     render js: "window.location = '#{path}'"
   end
 
