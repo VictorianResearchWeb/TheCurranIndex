@@ -15,7 +15,9 @@ class ArticlesController < ApplicationController
     @contents = page_contents ? page_contents.html : nil
     @group_by_attribute=params[:aggregate_by]||'article_type'
         
-    @aggregation = @search.aggregate(@list, @group_by_attribute)
+    raw_aggregation = @search.aggregate(@list, @group_by_attribute)
+    @aggregation = {}
+    raw_aggregation.keys.map{|k| k.nil? ? '' : k}.sort.each {|key| @aggregation[key] = raw_aggregation[key] if raw_aggregation[key] }
   end
 
   PERIODICAL_HEADERS = 
