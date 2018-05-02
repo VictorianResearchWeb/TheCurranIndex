@@ -100,6 +100,16 @@
           </div>
         </div>
       <% end %>
+    <h4 class="center"><br><b>Search Biographical Comments</b><br></h4>
+      <%= form_tag nil, method: :get do %>
+        <div class="input-group">
+          <% comments_filter = @search.filter(:comment) %>
+          <%= text_field_tag 'comments', comments_filter.value, class: 'form-control', id: 'comments_value', placeholder: 'Search Biographical Comments' %>
+          <div class="input-group-btn">
+            <button type="submit" class="btn btn-default" id="comments-filter">Search</button> 
+          </div>
+        </div>
+      <% end %>
   </div>
   <div class="maincol">
     <%if params[:search].nil?%>
@@ -120,7 +130,7 @@
         <div class="nav">
           <ul class="nav-pills">
             <li class="btn btn-sm btn-default"><%=link_to 'Reset All Filters', '?'%></li>
-            <%[:gender,:nationality,[:articles, :article_type],:full_name].each do |filter_name|%>
+            <%[:gender,:nationality,[:articles, :article_type],:full_name,:comment].each do |filter_name|%>
               <% selected(filter_name) %>
               <% filter = @search.filter(filter_name)%>
                 <%unless filter.empty?%>
@@ -178,6 +188,16 @@
           method: 'GET',
           url: 'full_name_search',
           data: { full_name_search: name_value.value,
+          search_params: params }
+        });
+      });
+      $("#comments-filter").click(function(e){
+        var params = "<%=@search.params.to_query%>"
+        e.preventDefault();
+        $.ajax({
+          method: 'GET',
+          url: 'comments_search',
+          data: { comments_search: comments_value.value,
           search_params: params }
         });
       });

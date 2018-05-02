@@ -10,5 +10,6 @@ class ContributorSearch < FortyFacets::FacetSearch
   facet [:articles, :article_type], name: 'Article Type'
 
   text :full_name, name: 'Name Search'
+  text :comment, name: 'Comments Search'
 
 end

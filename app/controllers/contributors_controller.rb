@@ -145,4 +145,22 @@ class ContributorsController < ApplicationController
     render js: "window.location = '#{path}'"
   end
 
+  def comments_search
+    #get fullname search and previous params
+    comments = params["comments_search"]
+    string = Rack::Utils.parse_nested_query(params["search_params"])
+    #remove previous fullname search - only capable of one search at a time
+    if string.key?("comments")
+      string.delete("comments")
+    end
+    search_params = { "search" => string}
+    #create a new search to get the fullname search filter
+    @search = ContributorSearch.new(search_params)
+    comments_filter = @search.filter(:comment)    
+    #get the params for the fullname search filter, then add to previous params and redirect
+    new_params = comments_filter.add(comments).path
+    path = contributors_path + new_params
+    render js: "window.location = '#{path}'"
+  end
+
 end

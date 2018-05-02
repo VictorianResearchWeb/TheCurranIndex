@@ -18,7 +18,7 @@ Rails.application.routes.draw do
   get 'download' => 'articles#download'
   get 'download_contributors' => 'contributors#download'
   get 'full_name_search' => 'contributors#full_name_search'
-
+  get 'comments_search' => 'contributors#comments_search'
 
 #  get 'static/:page_key' => 'static_pages#show'
 
