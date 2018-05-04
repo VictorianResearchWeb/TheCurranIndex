@@ -1,5 +1,11 @@
 class Contributor < ActiveRecord::Base
   has_and_belongs_to_many :articles
+  has_and_belongs_to_many :schools
+
+
+  def education
+    schools.to_a.map{|school| school.name}.join("; ")
+  end
 
   def birthdate
     if self.birth
