@@ -9,15 +9,17 @@ class ArticlesController < ApplicationController
 
   def advanced_search
     @search = AdvancedSearch.new(params)
-    @per_page = params[:per_page] || 20
-    @list = @search.result.includes(:contributors, :periodical, :month)
-    page_contents = PageContent.where(:page_key => 'home').first
-    @contents = page_contents ? page_contents.html : nil
-    @group_by_attribute=params[:aggregate_by]||'article_type'
-        
-    raw_aggregation = @search.aggregate(@list, @group_by_attribute)
-    @aggregation = {}
-    raw_aggregation.keys.map{|k| k.nil? ? '' : k}.sort.each {|key| @aggregation[key] = raw_aggregation[key] if raw_aggregation[key] }
+    if params[:search]      
+      @per_page = params[:per_page] || 20
+      @list = @search.result.includes(:contributors, :periodical, :month)
+      page_contents = PageContent.where(:page_key => 'home').first
+      @contents = page_contents ? page_contents.html : nil
+      @group_by_attribute=params[:aggregate_by]||'article_type'
+          
+      raw_aggregation = @search.aggregate(@list, @group_by_attribute)
+      @aggregation = {}
+      raw_aggregation.keys.map{|k| k.nil? ? '' : k}.sort.each {|key| @aggregation[key] = raw_aggregation[key] if raw_aggregation[key] }
+    end
   end
 
   PERIODICAL_HEADERS = 
