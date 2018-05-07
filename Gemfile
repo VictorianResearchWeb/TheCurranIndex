@@ -49,7 +49,6 @@ group :development, :test do
   gem 'capybara-webkit'
   gem 'pry'
   gem 'pry-byebug'
-  gem 'pry-byebug'
 end
 
 
