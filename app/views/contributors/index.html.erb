@@ -3,6 +3,35 @@
     <h4 class="center"><br><b>Filter By</b><br></h4>
     <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
       <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="headingZero">
+          <h4 class="panel-title">
+            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseZero" aria-expanded="true" aria-controls="collapseZero">
+              Periodicals
+            </a>
+          </h4>
+        </div>
+        <div id="collapseZero" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingZero">
+          <div class="panel-body">
+            <%[[:articles, :periodical]].each do |filter_name|%>
+              <%filter = @search.filter(filter_name)%>
+              <div class="filter">
+                <div class="filter-values">
+                  <ul class="selectable">
+                    <%filter.facet.reject(&:selected).each do |facet_value|%>
+                      <%entity = facet_value.entity%>
+                      <li>
+                        <%display = entity.title %>
+                          <%=link_to display, filter.add(entity).path%>
+                        <%end%>
+                      </li>
+                  </ul>
+                </div>
+              </div>
+            <%end%>
+          </div>
+        </div>
+      </div>
+      <div class="panel panel-default">
         <div class="panel-heading" role="tab" id="headingTwo">
           <h4 class="panel-title">
             <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
@@ -130,7 +159,7 @@
         <div class="nav">
           <ul class="nav-pills">
             <li class="btn btn-sm btn-default"><%=link_to 'Reset All Filters', '?'%></li>
-            <%[:gender,:nationality,[:articles, :article_type],:full_name,:comment].each do |filter_name|%>
+            <%[[:articles, :periodical],:gender,:nationality,[:articles, :article_type],:full_name,:comment].each do |filter_name|%>
               <% selected(filter_name) %>
               <% filter = @search.filter(filter_name)%>
                 <%unless filter.empty?%>

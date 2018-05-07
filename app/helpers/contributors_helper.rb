@@ -21,6 +21,11 @@ module ContributorsHelper
       filter.selected.each do |entity|
         @link.store(entity, entity)
       end
+    elsif filter_name == [:articles, :periodical]
+      @link = {}
+      filter.selected.each do |entity|
+        @link.store(entity, entity)
+    end
     elsif filter_name == :full_name
       @link = {}
       unless filter.value.nil?
