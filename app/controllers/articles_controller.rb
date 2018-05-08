@@ -52,7 +52,8 @@ class ArticlesController < ApplicationController
     :birth_year,
     :death_year,
     :identifier,
-    :wellesley
+    :wellesley,
+    :comment
   ]
 
   def download
@@ -81,7 +82,7 @@ class ArticlesController < ApplicationController
           if article.contributors[i]
             # contributor i info
             CONTRIBUTOR_HEADERS.each do |k|
-              record << article.contributors[i][k]
+              record << article.contributors[i][k].to_s.gsub("\n"," ")
             end
           else
             CONTRIBUTOR_HEADERS.each { record << "" }
