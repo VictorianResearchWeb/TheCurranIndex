@@ -25,42 +25,13 @@ module ContributorsHelper
       @link = {}
       filter.selected.each do |entity|
         @link.store(entity, entity)
-    end
+      end
     elsif filter_name == :full_name
       @link = {}
       unless filter.value.nil?
         @link.store(filter.value[0], filter.value)
       end
-    end
-
-    #contributors are described by first and last name
-    if filter_name == :contributors
-      @link = {}
-      filter.selected.each do |entity|
-        @entity_name = entity.first_last_name
-        @link.store(@entity_name, entity)
-      end
-    #periodicals are described by title
-    elsif filter_name == :periodical
-      @link = {}
-      filter.selected.each do |entity|
-        @entity_name = entity.title
-        @link.store(@entity_name, entity)
-      end
-    #article type is prose or verse
-    elsif filter_name == :article_type
-      @link = {}
-      filter.selected.each do |entity|
-        @link.store(entity, entity)
-      end
-    #date range is the date range
-    elsif filter_name == :article_year
-      @link = {}
-      unless filter.value.nil?
-        @link.store(filter.value[0], filter.value)
-      end
-    #title search is the search word
-    elsif filter_name == :title
+    elsif filter_name == :comment
       @link = {}
       unless filter.value.nil?
         @link.store(filter.value[0], filter.value)
