@@ -3,7 +3,13 @@ module ContributorsHelper
   def selected(filter_name)
     #determine which search filter, then return the correct descriptor and object
     filter = @search.filter(filter_name)
-    if filter_name == :gender
+    if filter_name == :full_name
+      @link = {}
+      filter.selected.each do |entity|
+        @entity_name = entity
+        @link.store(@entity_name, entity)
+      end
+    elsif filter_name == :gender
       @link = {}
       filter.selected.each do |entity|
         @entity_name = entity
@@ -24,12 +30,8 @@ module ContributorsHelper
     elsif filter_name == [:articles, :periodical]
       @link = {}
       filter.selected.each do |entity|
+        @entity_name = entity.title
         @link.store(entity, entity)
-      end
-    elsif filter_name == :full_name
-      @link = {}
-      unless filter.value.nil?
-        @link.store(filter.value[0], filter.value)
       end
     elsif filter_name == :comment
       @link = {}

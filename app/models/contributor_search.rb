@@ -3,14 +3,14 @@ class ContributorSearch < FortyFacets::FacetSearch
 
   #range :article_year, name: 'Article Year'
 
-  #facet :contributor, name: 'Contributor', order: :full_name
+  facet :full_name, name: 'Contributor'
   facet :gender, name: 'Gender'
   facet :nationality, name: 'Nationality'
   #facet :articles, name: 'Articles'
   facet [:articles, :article_type], name: 'Article Type'
   facet [:articles, :periodical], name: 'Periodical', order: :title
 
-  text :full_name, name: 'Name Search'
+  #text :full_name, name: 'Name Search'
   text :comment, name: 'Comments Search'
 
 end

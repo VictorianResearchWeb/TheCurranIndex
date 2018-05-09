@@ -3,6 +3,35 @@
     <h4 class="center"><br><b>Filter By</b><br></h4>
     <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
       <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="headingMinusOne">
+          <h4 class="panel-title">
+            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseMinusOne" aria-expanded="false" aria-controls="collapseMinusOne">
+              Contributors
+            </a>
+          </h4>
+        </div>
+        <div id="collapseMinusOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingMinusOne">
+          <div class="panel-body">
+            <%[:full_name].each do |filter_name|%>
+              <%filter = @search.filter(filter_name)%>
+              <div class="filter">
+                <div class="filter-values">
+                  <ul class="selectable">
+                    <%filter.facet.reject(&:selected).each do |facet_value|%>
+                      <%entity = facet_value.entity%>
+                      <li>
+                        <%display = "#{entity}"%>
+                          <%=link_to display, filter.add(entity).path%>
+                        <%end%>
+                      </li>
+                  </ul>
+                </div>
+              </div>
+            <%end%>
+          </div>
+        </div>
+      </div>
+      <div class="panel panel-default">
         <div class="panel-heading" role="tab" id="headingZero">
           <h4 class="panel-title">
             <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseZero" aria-expanded="true" aria-controls="collapseZero">
@@ -119,16 +148,6 @@
         </div>
       </div>
     </div>
-    <h4 class="center"><br><b>Search by Name</b><br></h4>
-      <%= form_tag nil, method: :get do %>
-        <div class="input-group">
-          <% full_name_filter = @search.filter(:full_name) %>
-          <%= text_field_tag 'full_name', full_name_filter.value, class: 'form-control', id: 'name_value', placeholder: 'Search Contributor Names' %>
-          <div class="input-group-btn">
-            <button type="submit" class="btn btn-default" id="name-filter">Search</button> 
-          </div>
-        </div>
-      <% end %>
     <h4 class="center"><br><b>Search Biographical Comments</b><br></h4>
       <%= form_tag nil, method: :get do %>
         <div class="input-group">
@@ -210,16 +229,6 @@
 </div>
 <% content_for :js do %>  
   <script type="text/javascript">
-      $("#name-filter").click(function(e){
-        var params = "<%=@search.params.to_query%>"
-        e.preventDefault();
-        $.ajax({
-          method: 'GET',
-          url: 'full_name_search',
-          data: { full_name_search: name_value.value,
-          search_params: params }
-        });
-      });
       $("#comments-filter").click(function(e){
         var params = "<%=@search.params.to_query%>"
         e.preventDefault();
