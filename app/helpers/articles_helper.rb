@@ -35,12 +35,12 @@ module ArticlesHelper
       unless filter.value.nil?
         @link.store(filter.value[0], filter.value)
       end
-    elsif filter_name == [:contributor, :gender]
+    elsif filter_name == [:contributors, :gender]
       @link = {}
       unless filter.value.nil?
         @link.store(filter.value[0], filter.value)
       end
-    elsif filter_name == [:contributor, :nationality]
+    elsif filter_name == [:contributors, :nationality]
       @link = {}
       unless filter.value.nil?
         @link.store(filter.value[0], filter.value)

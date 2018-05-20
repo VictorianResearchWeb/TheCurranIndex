@@ -9,13 +9,41 @@ module ContributorsHelper
         @entity_name = entity
         @link.store(@entity_name, entity)
       end
+    #used in advanced search
+    elsif filter_name == :contributors
+      @link = {}
+      filter.selected.each do |entity|
+        @entity_name = entity.first_last_name
+        @link.store(@entity_name, entity)
+      end
+    #used in advanced search
+    elsif filter_name == :periodical
+      @link = {}
+      filter.selected.each do |entity|
+        @entity_name = entity.title
+        @link.store(@entity_name, entity)
+      end
+  #advanced search
+    elsif filter_name == :article_type
+      @link = {}
+      filter.selected.each do |entity|
+        @link.store(entity, entity)
+      end
+      #advanced search
+    elsif filter_name == [:contributors, :gender]
+      @link = {}
+      filter.selected.each do |entity|
+        @entity_name = entity
+        @link.store(@entity_name, entity)
+      end  
+    # back to regularly scheduled contributors search  
     elsif filter_name == :gender
       @link = {}
       filter.selected.each do |entity|
         @entity_name = entity
         @link.store(@entity_name, entity)
       end   
-    elsif filter_name == :nationality
+    elsif filter_name == :nationality || filter_name == [:contributors, :nationality]
       @link = {}
       filter.selected.each do |entity|
         @entity_name = entity
