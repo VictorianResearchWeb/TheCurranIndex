@@ -3,9 +3,9 @@ class ContributorSearch < FortyFacets::FacetSearch
 
   #range :article_year, name: 'Article Year'
 
-  facet :full_name, name: 'Contributor'
+  facet :full_name, name: 'Contributor', order: :downcase
   facet :gender, name: 'Gender'
-  facet :nationality, name: 'Nationality'
+  facet :nationality, name: 'Nationality', order: :to_s
   #facet :articles, name: 'Articles'
   facet [:articles, :article_type], name: 'Article Type'
   facet [:articles, :periodical], name: 'Periodical', order: :title
