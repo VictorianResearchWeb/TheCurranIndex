@@ -43,6 +43,12 @@ module ContributorsHelper
         @entity_name = entity
         @link.store(@entity_name, entity)
       end   
+    elsif filter_name == :schools
+      @link = {}
+      filter.selected.each do |entity|
+        @entity_name = entity.name
+        @link.store(@entity_name, entity)
+      end    
     elsif filter_name == :nationality || filter_name == [:contributors, :nationality]
       @link = {}
       filter.selected.each do |entity|
@@ -59,7 +65,7 @@ module ContributorsHelper
       @link = {}
       filter.selected.each do |entity|
         @entity_name = entity.title
-        @link.store(entity, entity)
+        @link.store(@entity_name, entity)
       end
     elsif filter_name == :comment
       @link = {}

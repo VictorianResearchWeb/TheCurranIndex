@@ -147,6 +147,35 @@
          </div>
         </div>
       </div>
+      <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="headingFour">
+          <h4 class="panel-title">
+            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+              Education
+            </a>
+          </h4>
+        </div>
+        <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
+          <div class="panel-body">
+            <%[:schools].each do |filter_name|%>
+              <%filter = @search.filter(filter_name)%>
+              <div class="filter">
+                <div class="filter-values">
+                  <ul class="selectable">
+                    <%filter.facet.reject(&:selected).each do |facet_value|%>
+                      <%entity = facet_value.entity%>
+                      <li>
+                        <%display = entity.name %>
+                          <%=link_to display, filter.add(entity).path%>
+                        <%end%>
+                      </li>
+                  </ul>
+                </div>
+              </div>
+            <%end%>
+         </div>
+        </div>
+      </div>
     </div>
     <h4 class="center"><br><b>Search Biographical Comments</b><br></h4>
       <%= form_tag nil, method: :get do %>
@@ -178,7 +207,7 @@
         <div class="nav">
           <ul class="nav-pills">
             <li class="btn btn-sm btn-default"><%=link_to 'Reset All Filters', '?'%></li>
-            <%[[:articles, :periodical],:gender,:nationality,[:articles, :article_type],:full_name,:comment].each do |filter_name|%>
+            <%[[:articles, :periodical],:gender,:nationality,[:articles, :article_type],:full_name,:comment,:schools].each do |filter_name|%>
               <% selected(filter_name) %>
               <% filter = @search.filter(filter_name)%>
                 <%unless filter.empty?%>
