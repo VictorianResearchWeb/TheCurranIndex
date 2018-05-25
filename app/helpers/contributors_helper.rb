@@ -73,6 +73,11 @@ module ContributorsHelper
         @entity_name = entity.title
         @link.store(@entity_name, entity)
       end
+    elsif filter_name == :birth_year
+      @link = {}
+      unless filter.value.nil?
+        @link.store(filter.value[0], filter.value)
+      end
     elsif filter_name == :comment
       @link = {}
       unless filter.value.nil?

@@ -177,6 +177,26 @@
         </div>
       </div>
     </div>
+    <div>
+      <% birth_filter = @search.filter(:birth_year)%>
+      <div class="slider-row">
+        <div class = "slider" id="slider-range"></div>
+        <div class="slider-min">
+          <%=birth_filter.absolute_min%>
+        </div>
+        <div class="slider-max">
+          <%=birth_filter.absolute_max%>
+        </div>
+      </div>
+      <br>
+      <div class="input-group">
+        <%=text_field_tag "disabled", birth_filter.value, class: "form-control", id: "year-range-display", disabled: true, placeholder: "Publication Year"%>
+        <%= hidden_field_tag 'birth_range', birth_filter.value, class: "form-control", id: "year-range", data: { "absolute-min" => birth_filter.absolute_min, "absolute-max" => birth_filter.absolute_max }%>
+        <div class="input-group-btn">
+         <button type="submit" class="btn btn-default" id="range-filter">Search</button>
+        </div>
+      </div>
+    </div> 
     <h4 class="center"><br><b>Search Biographical Comments</b><br></h4>
       <%= form_tag nil, method: :get do %>
         <div class="input-group">
@@ -207,7 +227,7 @@
         <div class="nav">
           <ul class="nav-pills">
             <li class="btn btn-sm btn-default"><%=link_to 'Reset All Filters', '?'%></li>
-            <%[[:articles, :periodical],:gender,:nationality,[:articles, :article_type],:full_name,:comment,:schools].each do |filter_name|%>
+            <%[[:articles, :periodical],:gender,:nationality,[:articles, :article_type],:full_name,:comment,:schools,:birth_year].each do |filter_name|%>
               <% selected(filter_name) %>
               <% filter = @search.filter(filter_name)%>
                 <%unless filter.empty?%>
@@ -258,6 +278,41 @@
 </div>
 <% content_for :js do %>  
   <script type="text/javascript">
+    $(function() {
+      var current = $('#year-range').val();
+      var abs_min = parseFloat($('#year-range').attr('data-absolute-min'));
+      var abs_max = parseFloat($('#year-range').attr('data-absolute-max'));
+
+      var current_min = abs_min;
+      var current_max = abs_max;
+
+      if (current != '') {
+        var splits = current.split(' - ');
+        current_min = parseFloat(splits[0]);
+        current_max = parseFloat(splits[1]);
+      }
+      $( "#slider-range" ).slider({
+        range: true,
+        min: abs_min,
+        max:  abs_max,
+        values: [ current_min, current_max ],
+        slide: function( event, ui ) {
+          $( "#year-range" ).val( ui.values[ 0 ] + " - " + ui.values[ 1 ] );
+          $( "#year-range-display" ).val( ui.values[ 0 ] + " - " + ui.values[ 1 ] );
+        }
+      });
+        var birth_range = $("#year-range-display");
+        var params = "<%=@search.params.to_query%>"
+      $("#range-filter").click(function(e){
+        e.preventDefault();
+        $.ajax({
+          method: 'GET',
+          url: 'birth_range',
+          data: { birth_range: birth_range[0].value,
+          search_params: params }
+        });
+      });
+    });
       $("#comments-filter").click(function(e){
         var params = "<%=@search.params.to_query%>"
         e.preventDefault();

@@ -108,6 +108,24 @@ class ContributorsController < ApplicationController
     render js: "window.location = '#{path}'"
   end
 
+  def birth_range
+    #get date and previous search params
+    date_range = params["birth_range"]
+    string = Rack::Utils.parse_nested_query(params["search_params"])
+    #remove previous date range - can only search one at a time
+    if string.key?("birth_year")
+      string.delete("birth_year")
+    end
+    search_params = { "search" => string}
+    #create a new search to get the article_year filter
+    @search = ContributorSearch.new(search_params)
+    year_filter = @search.filter(:birth_year)
+    #get the params for the birth year filter, then add to previous params and redirect
+    new_params = year_filter.add(date_range).path
+    path = contributors_path + new_params
+    render js: "window.location = '#{path}'"
+  end
+
   def full_name_search
     #get fullname search and previous params
     fullname = params["full_name_search"]
@@ -127,7 +145,6 @@ class ContributorsController < ApplicationController
   end
 
   def title_search
-    binding.pry
     #get title search and previous params
     title = params["title_search"]
     string = Rack::Utils.parse_nested_query(params["search_params"])

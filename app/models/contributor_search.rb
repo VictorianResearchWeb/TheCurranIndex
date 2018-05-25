@@ -10,6 +10,7 @@ class ContributorSearch < FortyFacets::FacetSearch
   facet [:articles, :article_type], name: 'Article Type'
   facet [:articles, :periodical], name: 'Periodical', order: :title
   facet :schools, name: 'Education'
+  range :birth_year, name: 'Birth Year'
   
   #text :full_name, name: 'Name Search'
   text :comment, name: 'Comments Search'
