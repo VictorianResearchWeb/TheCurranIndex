@@ -36,6 +36,12 @@ module ContributorsHelper
         @entity_name = entity
         @link.store(@entity_name, entity)
       end  
+    elsif filter_name == [:contributors, :schools, :name]
+      @link = {}
+      filter.selected.each do |entity|
+        @entity_name = entity
+        @link.store(@entity_name, entity)
+      end      
     # back to regularly scheduled contributors search  
     elsif filter_name == :gender
       @link = {}

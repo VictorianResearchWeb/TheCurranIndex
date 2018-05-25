@@ -7,6 +7,7 @@ class AdvancedSearch < FortyFacets::FacetSearch
   facet :periodical, name: 'Periodical', order: :title
   facet :article_type, name: 'Article Type'
   facet [:contributors, :gender], name: 'Gender'
+  facet [:contributors, :schools, :name], name: 'Education', order: :to_s
   facet [:contributors, :nationality], name: 'Nationality', order: :to_s
 
   text :title, name: 'Search by Title'
