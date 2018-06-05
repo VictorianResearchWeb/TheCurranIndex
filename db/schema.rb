@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180419234556) do
+ActiveRecord::Schema.define(version: 1) do
 
   create_table "articles", force: :cascade do |t|
     t.integer "periodical_id",          limit: 4,                       null: false
@@ -53,10 +53,9 @@ ActiveRecord::Schema.define(version: 20180419234556) do
     t.string   "full_name",   limit: 255
     t.datetime "birth"
     t.datetime "death"
-    t.string   "gender",      limit: 1
+    t.string   "gender",      limit: 7,          default: "unknown", null: false
     t.text     "comment",     limit: 4294967295
-    t.string   "education",   limit: 255
-    t.string   "nationality", limit: 40
+    t.string   "nationality", limit: 40,         default: "unknown", null: false
     t.string   "birth_year",  limit: 4
     t.string   "death_year",  limit: 4
     t.string   "identifier",  limit: 255
@@ -70,6 +69,16 @@ ActiveRecord::Schema.define(version: 20180419234556) do
   add_index "contributors", ["gender"], name: "gender", using: :btree
   add_index "contributors", ["identifier"], name: "identifier", using: :btree
   add_index "contributors", ["nationality"], name: "nationality", using: :btree
+
+  create_table "contributors_education", force: :cascade do |t|
+    t.integer "contributor_id", limit: 4
+    t.integer "education_id",   limit: 4
+  end
+
+  create_table "contributors_schools", force: :cascade do |t|
+    t.integer "contributor_id", limit: 4
+    t.integer "schools_id",     limit: 4
+  end
 
   create_table "essays", force: :cascade do |t|
     t.integer "pub_month", limit: 4
@@ -86,11 +95,11 @@ ActiveRecord::Schema.define(version: 20180419234556) do
     t.text   "information", limit: 4294967295
   end
 
-  create_table "page_contents", force: :cascade do |t|
-    t.string   "page_key",   limit: 255
-    t.text     "html",       limit: 65535
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+  create_table "page_contents", id: false, force: :cascade do |t|
+    t.string   "page_key",   limit: 255,        null: false
+    t.text     "html",       limit: 4294967295
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
   end
 
   create_table "periodicals", force: :cascade do |t|
@@ -99,6 +108,10 @@ ActiveRecord::Schema.define(version: 20180419234556) do
     t.text   "comment",      limit: 4294967295
     t.text   "postscript",   limit: 4294967295
     t.string "frequency",    limit: 5
+  end
+
+  create_table "schools", force: :cascade do |t|
+    t.string "name", limit: 255
   end
 
 end
