@@ -1,6 +1,6 @@
 <div class="row">
   <div class="columns">
-    <div class="col-4">
+    <div class="col-3">
       <h4 class="center"><br><b>Filter By</b><br></h4>
       <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
         <div class="panel panel-default">
@@ -181,7 +181,7 @@
       <div>
       </div>
     </div>
-  <div class="col-4">
+  <div class="col-3">
         <h4 class="center"><br><b>Publication Year Search</b><br></h4>
         <% year_filter = @search.filter(:article_year)%>
         <div class="slider-row">
@@ -211,8 +211,6 @@
       </div>
     </div>
     <% end %>
-  </div>
-  <div class="col-4">
     <h4 class="center"><br><b>Aggregate By</b><br></h4>
     <div class="input-group">
       <% @search.aggregation_options.each do |option| %>
@@ -220,11 +218,8 @@
       <% end %>
     </div>
   </div>
-</div>
-</div>
-</div>
-<div class="row">
-  <div class="columns">
+
+
     <div class="maincol">
       <%if params[:search].nil?%>
       <br><br><br>
@@ -299,7 +294,7 @@
       </div>
       <%end%>
     </div>
-  </div>
+
 </div>
 <% content_for :js do %>  
 <script type="text/javascript">
