@@ -3,7 +3,7 @@ class ArticlesController < ApplicationController
     @search = ArticleSearch.new(params)
     @per_page = params[:per_page] || 20
     @list = @search.result.includes(:contributors, :periodical, :month).periodical_order.contents_order.paginate(page: params[:page], :per_page => @per_page)
-    page_contents = PageContent.where(:page_key => 'home').first
+    page_contents = PageContent.where(:page_key => 'articles').first
     @contents = page_contents ? page_contents.html : nil
   end
 
