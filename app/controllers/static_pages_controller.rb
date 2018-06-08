@@ -7,6 +7,7 @@ class StaticPagesController < ApplicationController
 
   def articles
     load_contents('articles')
+  end
 
   def history
     load_contents('history')
@@ -25,7 +26,6 @@ class StaticPagesController < ApplicationController
     @contact = Contact.first
   end
   
- 
   def load_contents(page_key = nil)
     @contents = nil
     @page_key = page_key || params[:page_key]
