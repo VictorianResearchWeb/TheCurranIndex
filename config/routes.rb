@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
-  root 'articles#index'
+  root 'static_pages#home'
+  get 'articles' => 'articles#index'
   get 'contributors' => 'contributors#index'
   get 'advanced_search' => 'articles#advanced_search'
 

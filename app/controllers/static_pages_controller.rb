@@ -1,5 +1,13 @@
 class StaticPagesController < ApplicationController
   before_action :load_contents
+  def home
+    load_contents('home')
+    @contact = Contact.first
+  end
+
+  def articles
+    load_contents('articles')
+
   def history
     load_contents('history')
   end
