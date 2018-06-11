@@ -14,8 +14,12 @@ class ArticlesController < ApplicationController
     page_contents = PageContent.where(:page_key => 'advanced').first
     @contents = page_contents ? page_contents.html : nil
     @group_by_attribute=params[:aggregate_by]||'article_type'
-        
-    raw_aggregation = @search.aggregate(@list, @group_by_attribute)
+    logger.debug("starting raw aggregation at #{Time.now}")   
+    if params[:search] then
+      raw_aggregation = @search.aggregate(@list, @group_by_attribute)
+    else
+      raw_aggregation = {}
+    end
     @aggregation = {}
     raw_aggregation.keys.map{|k| k.nil? ? '' : k}.sort.each {|key| @aggregation[key] = raw_aggregation[key] if raw_aggregation[key] }
   end
