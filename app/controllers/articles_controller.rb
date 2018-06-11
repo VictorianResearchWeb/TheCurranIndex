@@ -111,7 +111,7 @@ class ArticlesController < ApplicationController
     year_filter = @search.filter(:article_year)
     #get the params for the article year filter, then add to previous params and redirect
     new_params = year_filter.add(date_range).path
-    path = root_path + new_params
+    path = articles_path + new_params
     render js: "window.location = '#{path}'"
   end
 
@@ -147,7 +147,7 @@ class ArticlesController < ApplicationController
     title_filter = @search.filter(:title)    
     #get the params for the title search filter, then add to previous params and redirect
     new_params = title_filter.add(title).path
-    path = root_path + new_params
+    path = articles_path + new_params
     render js: "window.location = '#{path}'"
   end
 
