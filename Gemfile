@@ -12,14 +12,13 @@ gem 'csv'
 #faceted searching
 gem 'forty_facets'
 
-gem 'nokogiri', '~> 1.8.2'
-gem 'loofah', '~> 2.2.1'
+gem "nokogiri", ">= 1.10.4"
+gem "loofah", ">= 2.2.3"
 gem 'rails-html-sanitizer', '~> 1.0.4'
-gem 'oink'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.3'
-gem 'bootstrap-sass'
+gem "bootstrap-sass", ">= 3.4.1"
 # Use Uglifier as compressor for JavaScript assets
 #gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .js.coffee assets and views
