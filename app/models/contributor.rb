@@ -2,6 +2,8 @@ class Contributor < ActiveRecord::Base
   has_and_belongs_to_many :articles
   has_and_belongs_to_many :schools
 
+  scope :wellesley, -> { where(wellesley: true) }
+
 
   def education
     schools.to_a.map{|school| school.name}.join("; ")

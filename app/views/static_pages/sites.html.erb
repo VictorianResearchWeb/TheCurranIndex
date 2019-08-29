@@ -1,7 +1,9 @@
 <% if @contents%>
+<div class="col-sm-10 white-background col-sm-offset-1">
 <%= raw(@contents.html) %>
+</div>
 <% else %>
-<div class="col-sm-10 col-sm-offset-1">
+<div class="col-sm-10 white-background col-sm-offset-1">
 <h4 class="center">Other freely accessible sites on contributors to 19th Century British Periodicals</h4>
 <br>
 <p><b>Athenaeum</b>: The Athenaeum Projects, maintained by the Centre for Interactive Systems Research, City University of London [an index of book reviews published in the Athenaeum between 1828 and 1870] <%=link_to "http://smcse.city.ac.uk/doc/cisr/web/athenaeum/", "http://smcse.city.ac.uk/doc/cisr/web/athenaeum/", target: "_blank"%></p>

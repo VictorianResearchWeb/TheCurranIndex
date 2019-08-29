@@ -11,6 +11,7 @@ class ContributorSearch < FortyFacets::FacetSearch
   facet [:articles, :periodical], name: 'Periodical', order: :title
   facet :schools, name: 'Education', order: :name
   range :birth_year, name: 'Birth Year'
+  scope :wellesley, name: "Included in Wellesley Index?"
   
   #text :full_name, name: 'Name Search'
   text :comment, name: 'Comments Search'
