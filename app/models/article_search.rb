@@ -5,7 +5,7 @@ class ArticleSearch < FortyFacets::FacetSearch
 
   facet :contributors, name: 'Contributor', order: :full_name
   facet :periodical, name: 'Periodical', order: :title
-  facet :article_type, name: 'Article Type'
+  facet :article_type, name: 'Genre'
 
   text :title, name: 'Search by Title'
 

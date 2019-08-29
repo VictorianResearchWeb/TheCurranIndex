@@ -7,7 +7,7 @@ class ContributorSearch < FortyFacets::FacetSearch
   facet :gender, name: 'Gender'
   facet :nationality, name: 'Nationality', order: :to_s
   #facet :articles, name: 'Articles'
-  facet [:articles, :article_type], name: 'Article Type'
+  facet [:articles, :article_type], name: 'Genre'
   facet [:articles, :periodical], name: 'Periodical', order: :title
   facet :schools, name: 'Education', order: :name
   range :birth_year, name: 'Birth Year'

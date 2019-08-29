@@ -1,7 +1,7 @@
 <div class="row">
   <div class="columns">
     <div class="col-3">
-      <h4 class="center"><br><b>Filter By</b><br></h4>
+      <h4 class="center"><br><b>Select</b><br></h4>
       <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
         <div class="panel panel-default">
           <div class="panel-heading" role="tab" id="headingOne">
@@ -65,7 +65,7 @@
           <div class="panel-heading" role="tab" id="headingThree">
             <h4 class="panel-title">
               <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                Article Type
+                Genre
               </a>
             </h4>
           </div>
@@ -182,7 +182,7 @@
       </div>
     </div>
   <div class="col-3">
-        <h4 class="center"><br><b>Publication Year Search</b><br></h4>
+        <h4 class="center"><br><b>Publication Year Range</b><br></h4>
         <% year_filter = @search.filter(:article_year)%>
         <div class="slider-row">
           <div class = "slider" id="slider-range"></div>
@@ -201,7 +201,7 @@
             <button type="submit" class="btn btn-default" id="range-filter">Search</button>
           </div>
         </div>
-     <h4 class="center"><br><b>Title Search</b><br></h4>
+     <h4 class="center"><br><b>Title of Contribution</b><br></h4>
      <%= form_tag nil, method: :get do %>
      <div class="input-group">
       <% title_filter = @search.filter(:title) %>
