@@ -262,6 +262,9 @@
               <%unless contributor.comment.nil?%>
                 <%=raw contributor.comment%>
               <%end%>
+              <%if contributor.wellesley %>
+                <%="(Also in the Wellesley Index.)"%></p>
+              <%end%>
             </p>
               <%end%>
             <%end%>

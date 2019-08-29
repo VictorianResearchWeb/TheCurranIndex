@@ -109,7 +109,7 @@ module ContributorsHelper
 
 
     #put the citation in order and drop any items that are nil/blank, joining with a comma
-    array = [comment, code, art.title, art.pages, art.date, all_contributors, art.attribution_confidence, art.attribution]
+    array = [comment, code, art.title, art.volume, art.pages, art.date, all_contributors, art.attribution_confidence, art.attribution]
     citation = array.reject(&:blank?).join(", ").to_s
 
     #the following items are joined with spaces, not comma
