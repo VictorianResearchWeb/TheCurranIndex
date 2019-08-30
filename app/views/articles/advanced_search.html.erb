@@ -195,8 +195,8 @@
         </div>
         <br>
         <div class="input-group">
-          <%=text_field_tag "disabled", year_filter.value, class: "form-control", id: "year-range-display", disabled: true, placeholder: "Year"%>
-          <%= hidden_field_tag 'date_range', year_filter.value, class: "form-control", id: "year-range", data: { "absolute-min" => year_filter.absolute_min, "absolute-max" => year_filter.absolute_max }%>
+          <%= hidden_field_tag "disabled", year_filter.value, class: "form-control", id: "year-range-display", disabled: true, placeholder: "Year"%>
+          <%= text_field_tag 'date_range', year_filter.value, class: "form-control", id: "year-range", data: { "absolute-min" => year_filter.absolute_min, "absolute-max" => year_filter.absolute_max }%>
           <div class="input-group-btn">
             <button type="submit" class="btn btn-default" id="range-filter">Search</button>
           </div>
@@ -321,14 +321,15 @@
         $( "#year-range-display" ).val( ui.values[ 0 ] + " - " + ui.values[ 1 ] );
       }
     });
-    var date_range = $("#year-range-display");
+    var date_range = $("#year-range");
     var params = "<%=@search.params.to_query%>"
     $("#range-filter").click(function(e){
+      var clean_date_range = date_range[0].value.replace(/\s*\-\s*/g," - ");
       e.preventDefault();
       $.ajax({
         method: 'GET',
         url: 'advanced_date_range',
-        data: { advanced_date_range: date_range[0].value,
+        data: { advanced_date_range: clean_date_range,
           search_params: params }
         });
     });
