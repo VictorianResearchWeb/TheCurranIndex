@@ -78,6 +78,11 @@ module ContributorsHelper
       unless filter.value.nil?
         @link.store(filter.value[0], filter.value)
       end
+    elsif filter_name == :article_year
+      @link = {}
+      unless filter.value.nil?
+        @link.store(filter.value[0], filter.value)
+      end
     elsif filter_name == :comment
       @link = {}
       unless filter.value.nil?
