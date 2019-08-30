@@ -83,6 +83,12 @@ module ContributorsHelper
       unless filter.value.nil?
         @link.store(filter.value[0], filter.value)
       end
+    elsif filter_name == :wellesley
+      @link = {}
+       filter.selected.each do |entity|
+        @entity_name = entity == "1" ? 'Included' : 'Not Included' 
+        @link.store(@entity_name, entity)
+      end  
     end
     return @link
   end
