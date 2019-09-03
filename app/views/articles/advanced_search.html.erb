@@ -1,6 +1,6 @@
 <div class="row">
-  <div class="columns white-background">
-    <div class="col-3">
+  <div class="columns col-sm-10 col-sm-offset-1 white-background">
+    <div class="col-sm-3">
       <h4 class="center"><br><b>Select</b><br></h4>
       <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
         <div class="panel panel-default">
@@ -181,46 +181,46 @@
       <div>
       </div>
     </div>
-  <div class="col-3">
-        <h4 class="center"><br><b>Publication Year Range</b><br></h4>
-        <% year_filter = @search.filter(:article_year)%>
-        <div class="slider-row">
-          <div class = "slider" id="slider-range"></div>
-          <div class="slider-min">
-            <%=year_filter.absolute_min%>
-          </div>
-          <div class="slider-max">
-            <%=year_filter.absolute_max%>
-          </div>
+    <div class="col-sm-3">
+      <h4 class="center"><br><b>Publication Year Range</b><br></h4>
+      <% year_filter = @search.filter(:article_year)%>
+      <div class="slider-row">
+        <div class = "slider" id="slider-range"></div>
+        <div class="slider-min">
+          <%=year_filter.absolute_min%>
         </div>
-        <br>
-        <div class="input-group">
-          <%= hidden_field_tag "disabled", year_filter.value, class: "form-control", id: "year-range-display", disabled: true, placeholder: "Year"%>
-          <%= text_field_tag 'date_range', year_filter.value, class: "form-control", id: "year-range", data: { "absolute-min" => year_filter.absolute_min, "absolute-max" => year_filter.absolute_max }%>
-          <div class="input-group-btn">
-            <button type="submit" class="btn btn-default" id="range-filter">Search</button>
-          </div>
+        <div class="slider-max">
+          <%=year_filter.absolute_max%>
         </div>
-     <h4 class="center"><br><b>Title of Contribution</b><br></h4>
-     <%= form_tag nil, method: :get do %>
-     <div class="input-group">
-      <% title_filter = @search.filter(:title) %>
-      <%= text_field_tag 'title', title_filter.value, class: 'form-control', id: 'title_value', placeholder: 'Search Article Titles' %>
-      <div class="input-group-btn">
-        <button type="submit" class="btn btn-default" id="title-filter">Search</button> 
+      </div>
+      <br>
+      <div class="input-group">
+        <%= hidden_field_tag "disabled", year_filter.value, class: "form-control", id: "year-range-display", disabled: true, placeholder: "Year"%>
+        <%= text_field_tag 'date_range', year_filter.value, class: "form-control", id: "year-range", data: { "absolute-min" => year_filter.absolute_min, "absolute-max" => year_filter.absolute_max }%>
+        <div class="input-group-btn">
+          <button type="submit" class="btn btn-default" id="range-filter">Search</button>
+        </div>
+      </div>
+      <h4 class="center"><br><b>Title of Contribution</b><br></h4>
+       <%= form_tag nil, method: :get do %>
+       <div class="input-group">
+        <% title_filter = @search.filter(:title) %>
+        <%= text_field_tag 'title', title_filter.value, class: 'form-control', id: 'title_value', placeholder: 'Search Article Titles' %>
+        <div class="input-group-btn">
+          <button type="submit" class="btn btn-default" id="title-filter">Search</button> 
+        </div>
+      </div>
+      <% end %>
+      <h4 class="center"><br><b>Aggregate By</b><br></h4>
+      <div class="input-group">
+        <% @search.aggregation_options.each do |option| %>
+        <%= link_to option.first, "#{request.original_url.gsub(/&aggregate_by=.*/,'')}&aggregate_by=#{option.last}" %><br/>
+        <% end %>
       </div>
     </div>
-    <% end %>
-    <h4 class="center"><br><b>Aggregate By</b><br></h4>
-    <div class="input-group">
-      <% @search.aggregation_options.each do |option| %>
-      <%= link_to option.first, "#{request.original_url.gsub(/&aggregate_by=.*/,'')}&aggregate_by=#{option.last}" %><br/>
-      <% end %>
-    </div>
-  </div>
 
 
-    <div class="maincol">
+    <div class="col-sm-6">
       <%if params[:search].nil?%>
       <br><br><br>
       <div class="panel panel-default">
