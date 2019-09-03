@@ -27,8 +27,9 @@ module ArticlesHelper
     #this provides the html for the popover, redirecting to a partial with the periodical information
     comment = "<b><a tabindex='0' class='popover-periodical' data-toggle='popover' data-trigger='focus' title='#{art.periodical.title}' data-content='#{render :partial => 'periodical', :locals => {periodical: art.periodical}}'> #{art.periodical.abbreviation}</a></b>"
 
+    volume_string = "Volume #{art.volume}"
     #put the citation in order and drop any items that are nil/blank, joining with a comma
-    array = [comment, code, art.title, art.volume, art.pages, art.date, all_contributors, art.attribution_confidence, art.attribution]
+    array = [comment, code, art.title, art.pages, volume_string, art.date, all_contributors, art.attribution_confidence, art.attribution]
     citation = array.reject(&:blank?).join(", ").to_s
 
     #the following items are joined with spaces, not comma
