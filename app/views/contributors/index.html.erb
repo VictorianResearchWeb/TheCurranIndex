@@ -309,6 +309,7 @@
       </div>    
       <% end %>
     </div>
+  </div>
 </div>
 <% content_for :js do %>  
   <script type="text/javascript">
@@ -322,7 +323,6 @@
 
       if (current != '') {
         var splits = current.split(' - ');
-//        var splits = current.split(/\s*\-\s*/g);
         current_min = parseFloat(splits[0]);
         current_max = parseFloat(splits[1]);
       }
