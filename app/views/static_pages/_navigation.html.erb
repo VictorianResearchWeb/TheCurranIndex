@@ -1,6 +1,5 @@
-<nav class="navbar navbar-toggleable-md nav-bg">
-  <div class="collapse navbar-collapse">
-    <div class="navbar-nav">
+<div class="col-sm-12 full-width-depad">
+<nav class="navbar nav-bg navbar-nav">
     <%=link_to "Home", root_path, class: "nav-item nav-link" %>
     <%=link_to "Contributors", articles_path, class: "nav-item nav-link" %>
     <%=link_to "Author Info", contributors_path, class: "nav-item nav-link" %>
@@ -10,9 +9,8 @@
     <%=link_to 'Attribution Scholarship', scholarship_path, class: "nav-item nav-link" %>
     <%=link_to 'Related Sites', sites_path, class: "nav-item nav-link" %>
     <%=link_to 'Contact Us', contact_path, class: "nav-item nav-link"%>
-    </div>
-  </div>
 </nav>
+</div>
 
 <% content_for :js do %>  
   <script type="text/javascript">

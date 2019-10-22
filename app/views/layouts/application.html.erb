@@ -1,18 +1,17 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>TheCurranIndex</title>
-  <%= stylesheet_link_tag    'application', media: 'all' %>
-  <%= csrf_meta_tags %>
-</head>
+  <head>
+    <title>TheCurranIndex</title>
+    <%= stylesheet_link_tag    'application', media: 'all' %>
+    <%= csrf_meta_tags %>
+  </head>
   <body class="custom-background">
-      <div class="header" id="header_image">
+    <div id="wrapper" class="col-sm-6 white-background col-sm-offset-3 full-width-depad">
+      <div class="center header col-sm-8" id="header_image"><img src="assets/oldbooks2.jpg" class="center"/></div>
+      <%=render :partial => '/static_pages/navigation'%>
+      <div class="contents repad">
+        <%= yield %>
       </div>
-        <%=render :partial => '/static_pages/navigation'%>
-        <div class="wrapper">
-          <%= yield %>
-        </div>
-
       <footer class="footer">
           <div class="collapse navbar-collapse">
             <div class="navbar-nav">
@@ -21,6 +20,7 @@
              </div> 
           </div>
        </footer>
+     </div>
     <%= javascript_include_tag 'application'%>
     <%= yield :js %>
   </body>
