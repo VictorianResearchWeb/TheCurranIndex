@@ -4,6 +4,7 @@
     <title>TheCurranIndex</title>
     <%= stylesheet_link_tag    'application', media: 'all' %>
     <%= csrf_meta_tags %>
+    <%= analytics_init if GoogleAnalytics.valid_tracker? %>
   </head>
   <body class="custom-background">
     <div id="wrapper" class="col-sm-8 white-background col-sm-offset-2 full-width-depad">

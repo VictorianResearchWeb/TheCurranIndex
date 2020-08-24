@@ -12,7 +12,7 @@ gem 'csv'
 #faceted searching
 gem 'forty_facets'
 
-gem "nokogiri", ">= 1.10.4"
+gem "nokogiri", ">= 1.10.8"
 gem "loofah", ">= 2.2.3"
 gem 'rails-html-sanitizer', '~> 1.0.4'
 
@@ -40,6 +40,8 @@ gem 'sdoc', '~> 0.4.0',          group: :doc
 
 # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
 #gem 'spring',        group: :development
+
+gem 'google-analytics-rails', '1.1.1'
 
 #testing and development
 group :development, :test do
