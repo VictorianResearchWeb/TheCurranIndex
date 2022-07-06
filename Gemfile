@@ -14,7 +14,7 @@ gem 'forty_facets'
 
 gem "nokogiri", ">= 1.10.8"
 gem "loofah", ">= 2.2.3"
-gem 'rails-html-sanitizer', '~> 1.0.4'
+gem 'rails-html-sanitizer', '~> 1.4.3'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.3'
